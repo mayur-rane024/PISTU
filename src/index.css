@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+html {
+  scroll-behavior: smooth;
+}
+@font-face {
+  font-family: 'font1';
+  src: url('/font1.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'font2';
+  src: url('/font2.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'font3';
+  src: url('/SERIBL__.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'font4';
+  src: url('/Sanseriff.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'font5';
+  src: url('/Outfit-Bold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'font6';
+  src: url('/Poppins-Medium.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+::selection {
+  background-color:rgb(249, 215, 166); /* Change to your preferred color */
+  color: rgb(58, 25, 19); /* Change the text color if needed */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* <div
+  className="w-20 h-20 flex items-center justify-center border-2 border-leather-accent rounded-full font-serif text-2xl text-leather-dark"
+>
+  02
+</div> */
