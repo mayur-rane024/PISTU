@@ -10,13 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tabler/icons-react": "^3.34.0",
     "@tailwindcss/vite": "^4.1.7",
+    "clsx": "^2.1.1",
     "lucide-react": "^0.511.0",
+    "motion": "^12.16.0",
     "pistu": "file:",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-icons": "^5.5.0",
     "react-router-dom": "^7.6.1",
+    "tailwind-merge": "^3.3.0",
     "tailwindcss": "^4.1.7"
   },
   "devDependencies": {

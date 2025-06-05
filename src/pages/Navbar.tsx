@@ -10,9 +10,9 @@ function Navbar() {
     const handleScroll = () => {
       const nav = document.querySelector("nav");
       if (window.scrollY > 0) {
-        nav?.classList.add("bg-white");
+        nav?.classList.add("nav-bg-color");
       } else {
-        nav?.classList.remove("bg-white");
+        nav?.classList.remove("nav-bg-color");
       }
     };
 
@@ -25,7 +25,7 @@ function Navbar() {
   };
 
   return (
-    <nav className=" bg-black/20 backdrop-blur-md transition-all duration-200 h-20  text-[#d7b788] outline-none  border-none fixed top-0 w-screen z-10 inset-y-0">
+    <nav className=" bg-white/5 backdrop-blur-md transition-all duration-200 h-20 shadow-sm  text-[#4d3716] outline-none fixed border-none top-0 w-screen z-10 inset-y-0">
       <div className="container mx-auto  flex justify-between items-center">
         <div className="flex items-start gap-2">
           <h1 className="text-xl tracking-wider">
@@ -35,26 +35,26 @@ function Navbar() {
 
         <div className="flex justify-end items-center gap-8">
           <ul
-            className="flex gap-8 text-sm font-medium"
+            className="flex gap-8 text-md font-medium"
             style={{ fontFamily: "font6" }}
           >
             <li>
-              <a href="#products" className="hover:text-[#3A2A1B]">
+              <a href="#products" className="hover:text-[#3A2A1B] outline-none">
                 PRODUCTS
               </a>
             </li>
             <li>
-              <a href="#about" className="hover:text-[#3A2A1B]">
+              <a href="#about" className="hover:text-[#3A2A1B] outline-none">
                 ABOUT
               </a>
             </li>
             <li>
-              <a href="#craft" className="hover:text-[#3A2A1B]">
+              <a href="#craft" className="hover:text-[#3A2A1B] outline-none">
                 CRAFT
               </a>
             </li>
             <li>
-              <a href="#contact" className="hover:text-[#3A2A1B]">
+              <a href="#contact" className="hover:text-[#3A2A1B] outline-none">
                 CONTACT
               </a>
             </li>
