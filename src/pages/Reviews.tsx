@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 type Testimonial = {
   name: string;
@@ -33,6 +33,7 @@ const testimonials: Testimonial[] = [
 
 const CustomerStories: React.FC = () => {
   return (
+
     <div className="bg-transparent py-16 px-6 md:px-20 text-center">
       <h2 className="text-4xl md:text-5xl font-serif text-[#3A2E25]" style ={{fontFamily : "font5"}}>Customer Stories</h2>
       <p className="text-lg mt-4 text-[#3A2E25]" style ={{fontFamily : "font6"}}>

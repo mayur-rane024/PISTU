@@ -17,6 +17,7 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+
   return (
     <section id="home ">
       <div className="relative w-full h-[89vh] mt-20">
@@ -33,7 +34,7 @@ const Home = () => {
 
         {/* Centered Content */}
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center mt-30 px-4">
-          <h1
+          {/* <h1
             className="text-white text-5xl md:text-[60px] mb-4 m-40"
             style={{ fontFamily: "font5", opacity: 0.65 }}
           >
@@ -45,7 +46,7 @@ const Home = () => {
             style={{ fontFamily: "font6", opacity: 0.5 }}
           >
             A symphony of craft and luxury
-          </p>
+          </p> */}
           <button className="rounded-4xl bg-white/10 backdrop-blur-md text-[#d7b788] px-6 py-3 font-medium shadow-md hover:bg-[#d7b788] hover:text-[#000] transition">
             Explore Collection
           </button>

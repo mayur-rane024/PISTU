@@ -8,6 +8,12 @@ import NewPage from "./pages/NewPage";
 import CustomerStories from "./pages/Reviews";
 import OurPromise from "./pages/Promises";
 import SubscribeSection from "./pages/Contact";
+import Categories from "./pages/Categories";
+import Policies from "./pages/Policies/Policies";
+import Care from "./pages/Care";
+import Team from "./pages/Team";
+import About_Pistu from "./pages/About_PISTU";
+import Vision_Mission from "./pages/Vision_Mission";
 
 function App() {
   return (
@@ -22,7 +28,6 @@ function App() {
             <>
               <Navbar />
               <Home />
-              
               <Products />
               <CustomerStories />
               <OurPromise />
@@ -33,6 +38,12 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
+        <Route path="/categories" element={<Categories />} />
+        <Route path="/policies" element={<Policies />} />
+        <Route path="/care" element={<Care />} />
+        <Route path="/team" element={<Team />} />
+        <Route path="/about-pistu" element={<About_Pistu />} />
+        <Route path="/vision--mission" element={<Vision_Mission />} />
       </Routes>
     </div>
   );
