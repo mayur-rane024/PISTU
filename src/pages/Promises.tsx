@@ -7,6 +7,9 @@ import { Stars } from "lucide-react";
 const OurPromise: React.FC = () => {
   return (
     <section className="bg-white/90 backdrop-blur-lg py-16 px-4 text-center">
+      <img alt="mandala left" src="./mandala-left.png" className="absolute  mt-5 left-0 top-0 w-1/6 h-auto opacity-55" />
+      <img alt="mandala right" src="./mandala-right.png" className="absolute  mt-5 right-0 top-0 w-1/6 h-auto opacity-55" />
+
       <h2 className="text-4xl text-[#342b24] mb-4" style = {{fontFamily : "font5"}}>Our Promise</h2>
       <p className="text-lg text-[#3A2E25] max-w-2xl mx-auto mb-12" style = {{fontFamily : "font6"}}>
         When you choose PISTU, you're choosing more than a product. You're

@@ -59,7 +59,7 @@ function About() {
           quality of our materials, and our unwavering commitment to excellence.
         </p>
         {/* more text... */}
-        <button className="mt-4 px-6 py-3 bg-transparent text-[#3A2A1B] border-[#3A2A1B] rounded-3xl border-1 hover:bg-[#d7b788] transition shadow-md">
+        <button className="mt-4 px-6 py-3 bg-transparent text-[#3A2A1B] border-[#3A2A1B] rounded-4xl border-1 hover:bg-[#d7b788] transition shadow-md">
           Our Story
         </button>
       </div>
