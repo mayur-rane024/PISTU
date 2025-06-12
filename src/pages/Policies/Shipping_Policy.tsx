@@ -1,0 +1,57 @@
+const Shipping_Policy = () => {
+  return (
+    <div className=" min-h-screen flex items-center justify-center bg-transparent px-80 py-10 w-full  p-8 text-gray-800 flex-col rounded-lg text-center relative">
+     
+
+      <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: "font5" }}>
+        Shipping Policy
+      </h1>
+
+      <p className="mb-4" style={{ fontFamily: "font6" }}>
+        At <strong>PISTU</strong>, we are proud to offer worldwide shipping for all our handcrafted products.
+      </p>
+
+      <div className="w-40 h-0.5 bg-[#A37853] mx-auto mb-3 mt-3"></div>
+
+      <div className="px-25">
+        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+          Processing Time
+        </h2>
+        <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
+          Orders are processed within 2–5 business days. Processing times may increase during peak seasons and on customization.
+        </p>
+
+        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+          Shipping Methods and Costs
+        </h2>
+        <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
+          Shipping costs are calculated at checkout based on your delivery location and preferred shipping method.
+          Estimated delivery times are 3–10 business days depending on customization for domestic orders, and 10–15 business days for international orders.
+        </p>
+
+        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+          Tracking Information
+        </h2>
+        <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
+          You will receive a tracking number via email once your order has shipped.
+        </p>
+
+        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+          International Shipping
+        </h2>
+        <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
+          For international orders, customers are responsible for any customs duties, taxes, or fees that may apply upon delivery.
+        </p>
+
+        <p className="mt-8 text-sm text-gray-500" style={{ fontFamily: "font6" }}>
+          For any inquiries related to shipping, please contact us at{" "}
+          <a href="mailto:pistu.india@gmail.com" className="text-blue-600 underline">
+            <i>pistu.india@gmail.com</i>
+          </a>.
+        </p>
+      </div>
+    </div>
+  );
+};
+
+export default Shipping_Policy;
