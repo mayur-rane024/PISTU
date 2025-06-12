@@ -1,8 +1,9 @@
-import { Carousel } from "./../components/ui/carousel.tsx";
-import img1 from "./../feature/About1.jpg";
-import img2 from "./../feature/About2.jpg";
-import img3 from "./../feature/About3.jpg";
-import img4 from "./../feature/About4.jpg";
+import { Carousel } from "../../components/ui/carousel.tsx";
+import img1 from "../../feature/About1.jpg"
+
+import img2 from "../../feature/About2.jpg";
+import img3 from "../../feature/About3.jpg";
+import img4 from "../../feature/About4.jpg";
 
 const slideData = [
   {
@@ -43,7 +44,7 @@ function About() {
         <h2 className="text-4xl text-gray-800" style={{ fontFamily: "font5" }}>
           About PISTU
         </h2>
-       <p className="text-gray-600 text-sm" style={{ fontFamily: "font6" }}>
+        <p className="text-gray-600 text-sm" style={{ fontFamily: "font6" }}>
           PISTU - Pigment Art and Design Studio - was born from a passion for
           leather craftsmanship and a desire to create products that stand the
           test of time. Our journey began in a small workshop in Delhi, where

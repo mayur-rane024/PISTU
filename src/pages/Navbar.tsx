@@ -55,6 +55,7 @@ const Navbar = () => {
 
   const categories = [
     "Categories",
+    "Products",
     "Policies",
     "Care",
     "About Pistu",
