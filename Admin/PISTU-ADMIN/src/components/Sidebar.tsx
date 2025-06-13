@@ -1,17 +1,28 @@
-import { NavLink } from "react-router-dom";
+// src/components/Sidebar.tsx
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
   return (
-    <aside style={{ width: "220px", backgroundColor: "#f0f0f0", height: "100vh" }}>
-      <nav>
+    <div className="w-64 h-screen bg-gray-800 text-white fixed top-0 left-0">
+      <div className="p-4 text-2xl font-bold">Admin Panel</div>
+      <nav className="mt-4">
         <ul>
-          <li><NavLink to="/">Dashboard</NavLink></li>
-          <li><NavLink to="/products">Product List</NavLink></li>
-          <li><NavLink to="/products/upload">Upload Product</NavLink></li>
-          <li><NavLink to="/orders">Orders</NavLink></li>
+          <li className="p-4 hover:bg-gray-700">
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+          <li className="p-4 hover:bg-gray-700">
+            <Link to="/orders">Orders</Link>
+          </li>
+          <li className="p-4 hover:bg-gray-700">
+            <Link to="/products">Products</Link>
+          </li>
+          <li className="p-4 hover:bg-gray-700">
+            <Link to="/users">Users</Link>
+          </li>
         </ul>
       </nav>
-    </aside>
+    </div>
   );
 };
 

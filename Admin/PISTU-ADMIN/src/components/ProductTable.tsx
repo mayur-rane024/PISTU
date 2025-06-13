@@ -1,64 +1,38 @@
-import React from "react";
+// src/components/ProductTable.tsx
+import React from 'react';
 
-export interface Product {
-  id: string;
-  name: string;
-  brand: string;
-  category: string;
-  price: number;
-  originalPrice: number;
-  sales: number;
-  stock: number;
-  rating: number; // value from 0 to 5
-}
+const ProductTable: React.FC = () => {
+  const products = [
+    { id: 1, name: 'Product A', price: 29.99, stock: 100 },
+    { id: 2, name: 'Product B', price: 49.99, stock: 50 },
+    { id: 3, name: 'Product C', price: 19.99, stock: 200 },
+  ];
 
-interface ProductTableProps {
-  products: Product[];
-}
-
-const ProductTable: React.FC<ProductTableProps> = ({ products }) => {
   return (
-    <div className="overflow-x-auto border rounded-lg shadow-sm">
-      <table className="min-w-full bg-white">
-        <thead className="bg-gray-100 text-gray-700 text-sm uppercase">
-          <tr>
-            <th className="px-6 py-3 text-left">Product</th>
-            <th className="px-6 py-3 text-left">Brand</th>
-            <th className="px-6 py-3 text-left">Category</th>
-            <th className="px-6 py-3 text-left">Price</th>
-            <th className="px-6 py-3 text-left">Sales</th>
-            <th className="px-6 py-3 text-left">Stock</th>
-            <th className="px-6 py-3 text-left">Rating</th>
+    <div className="overflow-x-auto">
+      <table className="min-w-full bg-white border border-gray-200">
+        <thead>
+          <tr className="bg-gray-100">
+            <th className="py-2 px-4 border-b">ID</th>
+            <th className="py-2 px-4 border-b">Name</th>
+            <th className="py-2 px-4 border-b">Price</th>
+            <th className="py-2 px-4 border-b">Stock</th>
+            <th className="py-2 px-4 border-b">Actions</th>
           </tr>
         </thead>
-        <tbody className="text-gray-700">
-          {products.length === 0 ? (
-            <tr>
-              <td colSpan={7} className="text-center py-4 text-gray-500">
-                No products available.
+        <tbody>
+          {products.map((product) => (
+            <tr key={product.id} className="hover:bg-gray-50">
+              <td className="py-2 px-4 border-b">{product.id}</td>
+              <td className="py-2 px-4 border-b">{product.name}</td>
+              <td className="py-2 px-4 border-b">${product.price}</td>
+              <td className="py-2 px-4 border-b">{product.stock}</td>
+              <td className="py-2 px-4 border-b">
+                <button className="text-blue-500 hover:underline">Edit</button>
+                <button className="ml-2 text-red-500 hover:underline">Delete</button>
               </td>
             </tr>
-          ) : (
-            products.map((product) => (
-              <tr key={product.id} className="border-t hover:bg-gray-50">
-                <td className="px-6 py-3">{product.name}</td>
-                <td className="px-6 py-3">{product.brand}</td>
-                <td className="px-6 py-3">{product.category}</td>
-                <td className="px-6 py-3">
-                  <span className="line-through text-gray-400 mr-1">
-                    ₹{product.originalPrice}
-                  </span>
-                  <span className="text-blue-600 font-medium">₹{product.price}</span>
-                </td>
-                <td className="px-6 py-3">{product.sales}</td>
-                <td className="px-6 py-3">{product.stock}</td>
-                <td className="px-6 py-3">
-                  {"★".repeat(product.rating)}
-                  {"☆".repeat(5 - product.rating)}
-                </td>
-              </tr>
-            ))
-          )}
+          ))}
         </tbody>
       </table>
     </div>

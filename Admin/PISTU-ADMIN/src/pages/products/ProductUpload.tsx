@@ -1,100 +1,52 @@
-import React, { useState } from "react";
-
-interface ProductForm {
-  name: string;
-  category: string;
-  price: number;
-  stock: number;
-}
+// src/pages/Products/ProductUpload.tsx
+import React from 'react';
+import AdminLayout from '../../layout/AdminLayout';
 
 const ProductUpload: React.FC = () => {
-  const [formData, setFormData] = useState<ProductForm>({
-    name: "",
-    category: "",
-    price: 0,
-    stock: 0,
-  });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "price" || name === "stock" ? +value : value,
-    }));
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Submitting:", formData);
-    // TODO: Call backend API here
-    alert("Product uploaded successfully!");
-  };
-
   return (
-    <div>
-      <h2 className="text-xl font-semibold mb-4">Upload New Product</h2>
-      <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
-        <div>
-          <label className="block font-medium">Product Name</label>
+    <AdminLayout>
+      <h1 className="text-3xl font-bold mb-6">Upload Product</h1>
+      <form className="bg-white p-6 rounded-lg shadow-md">
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="name">
+            Product Name
+          </label>
           <input
             type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            className="border border-gray-300 rounded px-3 py-2 w-full"
+            id="name"
+            className="w-full p-2 border border-gray-300 rounded"
+            placeholder="Enter product name"
           />
         </div>
-
-        <div>
-          <label className="block font-medium">Category</label>
-          <select
-            name="category"
-            value={formData.category}
-            onChange={handleChange}
-            required
-            className="border border-gray-300 rounded px-3 py-2 w-full"
-          >
-            <option value="">Select Category</option>
-            <option value="Wellness">Wellness</option>
-            <option value="Fashion">Fashion</option>
-            <option value="Groceries">Groceries</option>
-          </select>
-        </div>
-
-        <div>
-          <label className="block font-medium">Price (₹)</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="price">
+            Price
+          </label>
           <input
             type="number"
-            name="price"
-            value={formData.price}
-            onChange={handleChange}
-            required
-            className="border border-gray-300 rounded px-3 py-2 w-full"
+            id="price"
+            className="w-full p-2 border border-gray-300 rounded"
+            placeholder="Enter price"
           />
         </div>
-
-        <div>
-          <label className="block font-medium">Stock</label>
+        <div className="mb-4">
+          <label className="block text-gray-700 font-semibold mb-2" htmlFor="image">
+            Product Image
+          </label>
           <input
-            type="number"
-            name="stock"
-            value={formData.stock}
-            onChange={handleChange}
-            required
-            className="border border-gray-300 rounded px-3 py-2 w-full"
+            type="file"
+            id="image"
+            className="w-full p-2 border border-gray-300 rounded"
           />
         </div>
-
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
         >
           Upload Product
         </button>
       </form>
-    </div>
+    </AdminLayout>
   );
 };
 

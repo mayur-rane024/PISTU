@@ -1,13 +1,14 @@
-import { Outlet } from "react-router-dom";
-import Sidebar from "../components/Sidebar";
+// src/layout/AdminLayout.tsx
+import React from 'react';
+import Sidebar from '../components/Sidebar';
 
-const AdminLayout = () => {
+const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div style={{ display: "flex" }}>
+    <div className="flex">
       <Sidebar />
-      <main style={{ flex: 1, padding: "20px" }}>
-        <Outlet />
-      </main>
+      <div className="ml-64 flex-1 p-6 bg-gray-100 min-h-screen">
+        {children}
+      </div>
     </div>
   );
 };
