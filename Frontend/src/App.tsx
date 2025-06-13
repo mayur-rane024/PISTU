@@ -1,7 +1,7 @@
 import Navbar from "./pages/Navbar";
 import Footer from "./pages/Footer";
-import Home from "./pages/Home";
-import About from "./pages/BestSeller/About";
+import Home from "./pages/Hero";
+import About from "./pages/About";
 import Products from "./pages/Products";
 import { Routes, Route } from "react-router-dom";
 import NewPage from "./pages/NewPage";
@@ -15,6 +15,7 @@ import Team from "./pages/Team";
 import About_Pistu from "./pages/About_PISTU";
 import Vision_Mission from "./pages/Vision_Mission";
 import CategoryProducts from "./pages/Categories/Products";
+import BestSeller from "./pages/BestSeller/BestSeller";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Products />
               <CustomerStories />
               <OurPromise />
+              <BestSeller />
               <About />
               <SubscribeSection />
               <Footer />

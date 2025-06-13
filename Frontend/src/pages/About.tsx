@@ -1,46 +1,12 @@
-import { Carousel } from "../../components/ui/carousel.tsx";
-import img1 from "../../feature/About1.jpg"
-
-import img2 from "../../feature/About2.jpg";
-import img3 from "../../feature/About3.jpg";
-import img4 from "../../feature/About4.jpg";
-
-const slideData = [
-  {
-    title: "Heritage Craftsmanship",
-    button: "Explore Collection",
-    src: img1,
-  },
-  {
-    title: "Modern Aesthetics",
-    button: "Discover Style",
-    src: img2,
-  },
-  {
-    title: "Timeless Leather",
-    button: "Shop Now",
-    src: img3,
-  },
-  {
-    title: "Bespoke Luxury",
-    button: "Learn More",
-    src: img4,
-  },
-];
+import { Link } from "react-router-dom";
 
 function About() {
   return (
     <section
       id="about"
-      className="min-h-screen w-full grid grid-rows-1 md:grid-rows-2 gap-8 items-center px-6 md:px-16 py-12 bg-[#fff9f1]"
+      className="min-h-screen w-full flex items-center justify-center px-6 md:px-16 py-12 bg-white/90 backdrop-blur-lg"
     >
-      {/* Carousel Section */}
-      <div className="w-full flex justify-center ">
-        <Carousel slides={slideData} />
-      </div>
-
-      {/* About Text Section */}
-      <div className="text-center md:text-left space-y-6">
+      <div className="text-center space-y-6 max-w-3xl">
         <h2 className="text-4xl text-gray-800" style={{ fontFamily: "font5" }}>
           About PISTU
         </h2>
@@ -59,10 +25,12 @@ function About() {
           Each PISTU creation is a testament to the skill of our artisans, the
           quality of our materials, and our unwavering commitment to excellence.
         </p>
-        {/* more text... */}
-        <button className="mt-4 px-6 py-3 bg-transparent text-[#3A2A1B] border-[#3A2A1B] rounded-4xl border-1 hover:bg-[#d7b788] transition shadow-md">
-          Our Story
-        </button>
+
+        <Link to="/about-pistu" className="inline-block">
+          <button className="mt-4 px-6 py-3 bg-transparent text-[#3A2A1B] border-[#3A2A1B] rounded-4xl border hover:bg-[#d7b788] transition shadow-md">
+            Our Story
+          </button>
+        </Link>
       </div>
     </section>
   );

@@ -52,7 +52,7 @@ const Products = () => {
             <img
               src={product.image}
               alt={product.title}
-              className="w-[100%] h-[45%] lg:w-[100%] lg:h-[60%] object-content lg:object-cover rounded-xl lg:rounded-2xl"
+              className="w-[100%] h-[60%] lg:w-[100%] lg:h-[60%] object-content lg:object-cover rounded-xl lg:rounded-2xl"
             />
             <div className="p-4">
               <h3
