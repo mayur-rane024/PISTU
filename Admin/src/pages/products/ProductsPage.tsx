@@ -1,9 +1,6 @@
 import { useState } from 'react';
-import Header from './Header';
-import StatsCards from './StatsCards';
-import ProductsTable from './ProductsTable';
-import AddProductPopup from './AddProductPopup';
-import Sidebar from '../components/Sidebar';
+import ProductsTable from './ProductTable';
+import AddProductPopup from '../AddProductPopup';
 
 // TypeScript interfaces for type safety
 interface Product {
@@ -40,7 +37,7 @@ const initialProducts: Product[] = [
   },
 ];
 
-const Dashboard: React.FC = () => {
+const ProductsPage: React.FC = () => {
   const [products, setProducts] = useState<Product[]>(initialProducts);
   const [isPopupOpen, setIsPopupOpen] = useState<boolean>(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
@@ -67,34 +64,13 @@ const Dashboard: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fff9f1] md:flex-row">
-      {/* Sidebar: Hidden on mobile, shown on toggle */}
-      <div
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-white transform ${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } md:translate-x-0 md:static md:w-60 transition-transform duration-300 ease-in-out`}
-      >
-        <Sidebar />
-        <button
-          className="md:hidden p-4 text-gray-600"
-          onClick={toggleSidebar}
-        >
-          Close
-        </button>
-      </div>
+    <div className="flex flex-col min-h-screen bg-gray-100 md:flex-row">
+     
 
       {/* Main Content */}
       <div className="flex-1 p-4 md:p-6">
         {/* Mobile Menu Button */}
-        <button
-          className="md:hidden mb-4 p-2 bg-blue-600 text-white rounded"
-          onClick={toggleSidebar}
-        >
-          Menu
-        </button>
-
-        <Header onAddProduct={handleAddProduct} />
-        <StatsCards />
+       
         <ProductsTable products={products} onAddProduct={handleAddProduct} />
 
         {/* Popup for Adding Product */}
@@ -117,4 +93,4 @@ const Dashboard: React.FC = () => {
   );
 };
 
-export default Dashboard;
+export default ProductsPage;
