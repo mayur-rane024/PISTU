@@ -7,15 +7,14 @@ import { Routes, Route } from "react-router-dom";
 import NewPage from "./pages/NewPage";
 import CustomerStories from "./pages/Reviews";
 import OurPromise from "./pages/Promises";
-import SubscribeSection from "./pages/Contact";
 import Categories from "./pages/Categories/Categories";
 import Policies from "./pages/Policies/Policies";
 import Care from "./pages/Care";
 import Team from "./pages/Team";
 import About_Pistu from "./pages/About_PISTU";
-import Vision_Mission from "./pages/Vision_Mission";
 import CategoryProducts from "./pages/Categories/Products";
 import BestSeller from "./pages/BestSeller/BestSeller";
+import LoginPopup from "./pages/LoginPage";
 
 function App() {
   return (
@@ -34,7 +33,6 @@ function App() {
               <OurPromise />
               <BestSeller />
               <About />
-              <SubscribeSection />
               <Footer />
             </>
           }
@@ -45,8 +43,10 @@ function App() {
         <Route path="/care" element={<Care />} />
         <Route path="/team" element={<Team />} />
         <Route path="/about-pistu" element={<About_Pistu />} />
-        <Route path="/vision--mission" element={<Vision_Mission />} />
         <Route path="/products" element={<CategoryProducts/>} />
+        <Route path="/login-up" element={<LoginPopup isOpen={true} onClose={function (): void {
+          throw new Error("Function not implemented.");
+        } }/>} />
       </Routes>
     </div>
   );
