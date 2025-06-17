@@ -16,6 +16,12 @@ const Sidebar: React.FC = () => {
             <Link to="/dashboard">Dashboard</Link>
           </li>
           <li className="p-4 ">
+            <Link to="/Home">Home Banner</Link>
+          </li>
+          <li className="p-4 ">
+            <Link to="/category">Category</Link>
+          </li>
+          <li className="p-4 ">
             <Link to="/orders">Orders</Link>
           </li>
           <li className="p-4 ">

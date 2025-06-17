@@ -50,7 +50,7 @@ const ProductsTable: React.FC<ProductsTableProps> = ({ products, onAddProduct })
         <h2 className="text-xl font-semibold">Products</h2>
         <button
           onClick={onAddProduct}
-          className="mt-4 px-6 py-3 bg-transparent text-[#3A2A1B] border-[#3A2A1B] rounded-4xl border hover:bg-[#d7b788] transition cursor-pointer shadow-md"
+          className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
         >
           Add Product
         </button>
