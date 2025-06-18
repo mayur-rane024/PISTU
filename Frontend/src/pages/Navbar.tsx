@@ -126,7 +126,7 @@ const Navbar = () => {
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
-          <div className="h-9 w-10 bg-school-bag cursor-pointer" />
+          <div className="h-8 w-11 bg-school-bag cursor-pointer" />
           <img
             src="./login.png"
             alt="Login"
