@@ -1,23 +1,18 @@
 const Terms_Conditions = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-transparent px-80 py-10 w-full p-8 text-gray-800 flex-col  rounded-lg text-center relative">
-
-
-      <h1 className="text-3xl font-bold mb-6 mt-4" style={{ fontFamily: "font5" }}>
+    <div className="min-h-screen flex items-center justify-center bg-transparent w-full sm:px-80  px-10 py-10 text-gray-800 flex-col rounded-lg text-center relative">
+      <h1 className="text-2xl sm:text-3xl font-bold mb-6 mt-4" style={{ fontFamily: "font5" }}>
         Terms and Conditions
       </h1>
 
-      <p className="mb-4" style={{ fontFamily: "font6" }}>
-        <strong>Effective Date:</strong> [Insert Date]
-      </p>
-      <p className="mb-4" style={{ fontFamily: "font6" }}>
+      <p className="mb-4 text-sm sm:text-base" style={{ fontFamily: "font6" }}>
         Welcome to <strong>PISTU (Pigment Art and Design Studio)</strong>. By accessing or purchasing from our website, you agree to abide by the following terms and conditions.
       </p>
 
-      <div className="w-40 h-0.5 bg-[#A37853] mx-auto mb-3 mt-3"></div>
+      <div className="w-20 sm:w-40 h-0.5 bg-[#A37853] mx-auto mb-3 mt-3"></div>
 
-      <div className="px-25">
-        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+      <div className="w-full max-w-4xl px-2 sm:px-6 md:px-10 lg:px-20">
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Use of Website
         </h2>
         <div className="text-sm" style={{ fontFamily: "font6" }}>
@@ -29,7 +24,7 @@ const Terms_Conditions = () => {
           </p>
         </div>
 
-        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Orders
         </h2>
         <div className="text-sm" style={{ fontFamily: "font6" }}>
@@ -41,7 +36,7 @@ const Terms_Conditions = () => {
           </p>
         </div>
 
-        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Shipping
         </h2>
         <div className="text-sm" style={{ fontFamily: "font6" }}>
@@ -53,7 +48,7 @@ const Terms_Conditions = () => {
           </p>
         </div>
 
-        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Returns and Refunds
         </h2>
         <div className="text-sm" style={{ fontFamily: "font6" }}>
@@ -65,7 +60,7 @@ const Terms_Conditions = () => {
           </p>
         </div>
 
-        <h2 className="text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Limitation of Liability
         </h2>
         <div className="text-sm" style={{ fontFamily: "font6" }}>
@@ -78,7 +73,7 @@ const Terms_Conditions = () => {
         </div>
 
         <div style={{ fontFamily: "font6" }}>
-          <p className="mt-8 text-gray-500">
+          <p className="mt-8 text-sm text-gray-500">
             For any queries or concerns, please contact us at{" "}
             <a href="mailto:pistu.india@gmail.com" className="text-blue-600 underline">
               <i>pistu.india@gmail.com</i>

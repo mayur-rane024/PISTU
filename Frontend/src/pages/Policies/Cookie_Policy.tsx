@@ -1,33 +1,30 @@
 const Cookie_Policy = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#fdf2e3] px-80 py-10 w-full p-8 text-gray-800 flex-col rounded-lg text-center relative">
+    <div className="min-h-screen flex items-center justify-center bg-[#fdf2e3] w-full sm:px-80 px-10 py-10 text-gray-800 flex-col rounded-lg text-center relative">
       <img
         alt="mandala left"
         src="./mandala-left.png"
-        className="absolute mt-10 left-0 top-0 w-1/5 h-auto opacity-60"
+        className="absolute mt-10 left-0 top-0 w-1/4 sm:w-1/5 h-auto opacity-60"
       />
       <img
         alt="mandala right"
         src="./mandala-right.png"
-        className="absolute mt-10 right-0 top-0 w-1/5 h-auto opacity-60"
+        className="absolute mt-10 right-0 top-0 w-1/4 sm:w-1/5 h-auto opacity-60"
       />
 
-      <h1 className="text-3xl font-bold mb-2" style={{ fontFamily: "font5" }}>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2" style={{ fontFamily: "font5" }}>
         Cookie Policy
       </h1>
 
-      <p className="mb-4" style={{ fontFamily: "font6" }}>
+      <p className="mb-4 text-sm sm:text-base" style={{ fontFamily: "font6" }}>
         At <strong>PISTU</strong>, we use cookies to enhance the user experience
         on our website.
       </p>
 
       <div className="w-40 h-0.5 bg-[#A37853] mx-auto mb-3 mt-3"></div>
 
-      <div className="px-25">
-        <h2
-          className="text-xl font-semibold mt-6 mb-2"
-          style={{ fontFamily: "font5" }}
-        >
+      <div className="w-full">
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           What Are Cookies
         </h2>
         <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
@@ -36,10 +33,7 @@ const Cookie_Policy = () => {
           browsing experience.
         </p>
 
-        <h2
-          className="text-xl font-semibold mt-6 mb-2"
-          style={{ fontFamily: "font5" }}
-        >
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Types of Cookies We Use
         </h2>
         <p className="mb-2 text-sm" style={{ fontFamily: "font6" }}>
@@ -51,10 +45,7 @@ const Cookie_Policy = () => {
           interact with our website to improve our services.
         </p>
 
-        <h2
-          className="text-xl font-semibold mt-6 mb-2"
-          style={{ fontFamily: "font5" }}
-        >
+        <h2 className="text-lg sm:text-xl font-semibold mt-6 mb-2" style={{ fontFamily: "font5" }}>
           Managing Cookies
         </h2>
         <p className="mb-4 text-sm" style={{ fontFamily: "font6" }}>
@@ -63,18 +54,14 @@ const Cookie_Policy = () => {
           our website.
         </p>
 
-        <p
-          className="mt-8 text-sm text-gray-500"
-          style={{ fontFamily: "font6" }}
-        >
+        <p className="mt-8 text-sm text-gray-500" style={{ fontFamily: "font6" }}>
           For further details, please contact us at{" "}
           <a
             href="mailto:pistu.india@gmail.com"
             className="text-blue-600 underline"
           >
             <i>pistu.india@gmail.com</i>
-          </a>
-          .
+          </a>.
         </p>
       </div>
     </div>
