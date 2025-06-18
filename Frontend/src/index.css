@@ -63,6 +63,18 @@ body {
   /* opacity: 0.9; */
 }
 
+.bg-school-bag {
+  background-image: url('/school-bag-1.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  transition: background-image 0.3s ease-in-out;
+}
+
+.bg-school-bag:hover {
+  background-image: url('/school-bag-2.png');
+}
+
 
 ::selection {
   background-color:rgb(70, 30, 23); /* Change to your preferred color */

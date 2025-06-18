@@ -1,18 +1,24 @@
 import { useState, useEffect, useRef } from "react";
-import { FiShoppingBag, FiSearch, FiMenu, FiX } from "react-icons/fi";
+import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
+  const [isToggleActive, setIsToggleActive] = useState(false);
 
   const sidebarRef = useRef<HTMLDivElement | null>(null);
   const searchRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
-  const handleToggle = () => console.log("Navigating to new page");
+  const toggleAbout = () => setIsAboutOpen(!isAboutOpen);
+  const toggleActive = () => {
+    setIsToggleActive(!isToggleActive);
+    console.log("Navigating to new page");
+  };
 
   useEffect(() => {
     const handleClickOutsideSidebar = (event: MouseEvent) => {
@@ -22,6 +28,7 @@ const Navbar = () => {
         !sidebarRef.current.contains(event.target as Node)
       ) {
         setIsMenuOpen(false);
+        setIsAboutOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutsideSidebar);
@@ -49,21 +56,17 @@ const Navbar = () => {
   const categories = [
     "Categories",
     "Products",
-    "Policies",
-    "Care",
-    "About Pistu",
-    "Team",
-    "Login Up"
+    { title: "About Us", items: ["About Pistu", "Policies", "Care"] },
+    "Team"
   ];
 
   const suggestions = ["Suggestion 1", "Suggestion 2", "Suggestion 3"];
 
   return (
-    <nav className="bg-[#f5e6cc] h-20 shadow-sm text-[#4d3716] fixed top-0 w-full z-50">
+    <nav className="bg-[#f5e6cc] h-20 shadow-md text-[#4d3716] fixed top-0 w-full z-50">
       <div className="container mx-auto flex justify-between items-center h-full px-4">
         {/* Left Side */}
         <div className="flex items-center gap-4">
-          {/* Menu Button - always visible for now */}
           <button
             onClick={toggleMenu}
             className="text-2xl focus:outline-none block"
@@ -71,14 +74,21 @@ const Navbar = () => {
             {isMenuOpen ? <FiX /> : <FiMenu />}
           </button>
 
-          {/* Desktop Search Bar */}
           <div ref={searchRef} className="hidden md:flex flex-col relative">
             <div className="flex items-center">
               <button
                 onClick={toggleSearch}
-                className="text-2xl ml-2"
+                className="ml-2 p-0 bg-transparent border-none cursor-pointer"
+                onMouseEnter={(e) => {
+                  const img = e.currentTarget.firstChild as HTMLImageElement | null;
+                  if (img) img.src = "/search-hover.png";
+                }}
+                onMouseLeave={(e) => {
+                  const img = e.currentTarget.firstChild as HTMLImageElement | null;
+                  if (img) img.src = "/search.png";
+                }}
               >
-                <FiSearch />
+                <img src="/search.png" alt="Search" className="h-7 w-7" />
               </button>
               {isSearchOpen && (
                 <input
@@ -94,7 +104,10 @@ const Navbar = () => {
               <div className="absolute top-10 left-10 w-64 bg-white shadow-md rounded-md z-40">
                 <ul className="p-2 text-sm">
                   {suggestions.map((sug, i) => (
-                    <li key={i} className="py-1 hover:bg-gray-100 cursor-pointer">
+                    <li
+                      key={i}
+                      className="py-1 hover:bg-gray-100 cursor-pointer"
+                    >
                       {sug}
                     </li>
                   ))}
@@ -107,19 +120,31 @@ const Navbar = () => {
         {/* Center Logo */}
         <div className="absolute left-1/2 transform -translate-x-1/2">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <img src="./logo.png" className="h-14" alt="logo" />
+            <img src="./logo.png" className="h-15" alt="logo" />
           </Link>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-4">
-          <FiShoppingBag className="text-2xl cursor-pointer hover:text-[#d7b788]" />
+          <div className="h-8 w-11 bg-school-bag cursor-pointer" />
           <img
-            src="./Logo2.png"
-            alt="Go to New Page"
-            onClick={handleToggle}
-            className="h-12 sm:h-16 w-auto cursor-pointer hover:opacity-80"
+            src="./login.png"
+            alt="Login"
+            onClick={() => console.log("Login Clicked")}
+            onMouseEnter={(e) => (e.currentTarget.src = "./login-hover.png")}
+            onMouseLeave={(e) => (e.currentTarget.src = "./login.png")}
+            className="h-10 w-10 cursor-pointer transition duration-200"
           />
+          <button
+            onClick={toggleActive}
+            className="relative w-12 h-6 bg-[#000000] rounded-full items-center focus:outline-none"
+          >
+            <span
+              className={`absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform duration-300 ease-in-out ${
+                isToggleActive ? "translate-x-6" : ""
+              }`}
+            />
+          </button>
         </div>
       </div>
 
@@ -131,47 +156,60 @@ const Navbar = () => {
         }`}
       >
         <div className="p-4">
-          {/* Mobile Search */}
-          <div className="mb-4" ref={searchRef}>
-            <div className="flex items-center bg-white rounded-md px-2 py-1">
-              <FiSearch className="text-xl mr-2 text-gray-500" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search..."
-                className="flex-1 outline-none text-sm bg-transparent"
-              />
-            </div>
-            <div className="mt-1 bg-white shadow rounded-md">
-              <ul className="p-2 text-sm">
-                {suggestions.map((sug, i) => (
-                  <li key={i} className="py-1 hover:bg-gray-100 cursor-pointer">
-                    {sug}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          {/* Menu Links */}
-          <ul className="text-md font-medium divide-y divide-[#A37853]" style={{ fontFamily: "font6" }}>
-            {categories.map((category, index) => {
-              const path =
-                "/" +
-                category.toLowerCase().replace(/ /g, "-").replace(/[^a-z-]/g, "");
-              return (
-                <li key={index} className="py-2">
+          <ul
+            className="text-md font-medium divide-y divide-[#A37853]"
+            style={{ fontFamily: "font6" }}
+          >
+            {categories.map((category, index) =>
+              typeof category === "string" ? (
+                <li key={index} className="py-3" style={{ fontFamily: "font6" }}>
                   <Link
-                    to={path}
+                    to={`/${category
+                      .toLowerCase()
+                      .replace(/ /g, "-")
+                      .replace(/[^a-z-]/g, "")}`}
                     onClick={() => setIsMenuOpen(false)}
                     className="block hover:text-[#3A2A1B]"
                   >
                     {category}
                   </Link>
                 </li>
-              );
-            })}
+              ) : (
+                <li key={index} className="py-2">
+                  <button
+                    onClick={toggleAbout}
+                    className="flex items-center justify-between w-full py-2 hover:text-[#3A2A1B]"
+                  >
+                    {category.title}
+                    <FiChevronDown
+                      className={`transition-transform duration-300 ${
+                        isAboutOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+                  <ul
+                    className={`overflow-hidden transition-all duration-300 ease-in-out ${
+                      isAboutOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0"
+                    }`}
+                  >
+                    {category.items.map((subItem, subIndex) => (
+                      <li key={subIndex} className="pl-4 py-1">
+                        <Link
+                          to={`/${subItem
+                            .toLowerCase()
+                            .replace(/ /g, "-")
+                            .replace(/[^a-z-]/g, "")}`}
+                          onClick={() => setIsMenuOpen(false)}
+                          className="block hover:text-[#3A2A1B]"
+                        >
+                          {subItem}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              )
+            )}
           </ul>
         </div>
       </div>
@@ -180,7 +218,10 @@ const Navbar = () => {
       {isMenuOpen && (
         <div
           className="fixed inset-0 bg-black/30 z-30"
-          onClick={() => setIsMenuOpen(false)}
+          onClick={() => {
+            setIsMenuOpen(false);
+            setIsAboutOpen(false);
+          }}
         ></div>
       )}
     </nav>
