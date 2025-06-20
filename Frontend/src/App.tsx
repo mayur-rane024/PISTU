@@ -15,6 +15,7 @@ import About_Pistu from "./pages/About_PISTU";
 import CategoryProducts from "./pages/Categories/Products";
 import BestSeller from "./pages/BestSeller/BestSeller";
 import LoginPopup from "./pages/LoginPage";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 function App() {
   return (
@@ -38,15 +39,30 @@ function App() {
           }
         />
         <Route path="/about" element={<About />} />
-        <Route path="/categories" element={<Categories />} />
+        {/* <Route path="/categories" element={<Categories />} /> */}
         <Route path="/policies" element={<Policies />} />
         <Route path="/care" element={<Care />} />
         <Route path="/team" element={<Team />} />
         <Route path="/about-pistu" element={<About_Pistu />} />
-        <Route path="/products" element={<CategoryProducts/>} />
-        <Route path="/login-up" element={<LoginPopup isOpen={true} onClose={function (): void {
-          throw new Error("Function not implemented.");
-        } }/>} />
+
+        {/* Category Products list for all categories */}
+        <Route path="/category" element={<CategoryProducts />} />
+        <Route path="/category/:categoryName" element={<CategoryProducts />} />
+
+        {/* Product detail page */}
+        <Route path="/category/:categoryName/:productName" element={<ProductPage />} />
+
+        <Route
+          path="/login-up"
+          element={
+            <LoginPopup
+              isOpen={true}
+              onClose={function (): void {
+                throw new Error("Function not implemented.");
+              }}
+            />
+          }
+        />
       </Routes>
     </div>
   );

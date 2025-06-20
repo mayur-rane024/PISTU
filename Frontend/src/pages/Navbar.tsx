@@ -54,8 +54,7 @@ const Navbar = () => {
   }, [isSearchOpen]);
 
   const categories = [
-    "Categories",
-    "Products",
+    "Category",
     { title: "About Us", items: ["About Pistu", "Policies", "Care"] },
     "Team"
   ];
