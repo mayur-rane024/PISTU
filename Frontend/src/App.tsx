@@ -7,7 +7,6 @@ import { Routes, Route } from "react-router-dom";
 import NewPage from "./pages/NewPage";
 import CustomerStories from "./pages/Reviews";
 import OurPromise from "./pages/Promises";
-import Categories from "./pages/Categories/Categories";
 import Policies from "./pages/Policies/Policies";
 import Care from "./pages/Care";
 import Team from "./pages/Team";
@@ -16,6 +15,7 @@ import CategoryProducts from "./pages/Categories/Products";
 import BestSeller from "./pages/BestSeller/BestSeller";
 import LoginPopup from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
+import CartComponent from "./pages/Basket/Basket";
 
 function App() {
   return (
@@ -48,7 +48,9 @@ function App() {
         {/* Category Products list for all categories */}
         <Route path="/category" element={<CategoryProducts />} />
         <Route path="/category/:categoryName" element={<CategoryProducts />} />
-
+        <Route path="/category/:categoryName/products" element={<CategoryProducts />} />
+        <Route path="/cart" element={<CartComponent items={[]} deliveryAddress={""} total={0} />} />;
+        {/* Products list for specific category */}
         {/* Product detail page */}
         <Route path="/category/:categoryName/:productName" element={<ProductPage />} />
 
