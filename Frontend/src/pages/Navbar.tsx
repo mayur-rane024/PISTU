@@ -119,20 +119,20 @@ const Navbar = () => {
         {/* Center Logo */}
         <div className="flex justify-center absolute left-1/2 transform -translate-x-1/2">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
+            <img src="./logo.png" className="h-15" alt="logo" />
           </Link>
         </div>
 
         {/* Right Side */}
-        <div className="flex items-center gap-1 md:gap-4">
-          <div className="h-8.5  w-10  bg-school-bag cursor-pointer" />
+        <div className="flex items-center gap-4">
+          <div className="h-8 w-11 bg-school-bag cursor-pointer" />
           <img
             src="/login.png"
             alt="Login"
             onClick={() => console.log("Login Clicked")}
-            onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
-            onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
-            className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
+            onMouseEnter={(e) => (e.currentTarget.src = "./login-hover.png")}
+            onMouseLeave={(e) => (e.currentTarget.src = "./login.png")}
+            className="h-10 w-10 cursor-pointer transition duration-200"
           />
           <button
             onClick={toggleActive}

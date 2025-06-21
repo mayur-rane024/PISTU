@@ -60,7 +60,7 @@ const mockProducts = [
 ];
 
 const ProductPage: React.FC = () => {
-  const { categoryName, productName } = useParams();
+  const { productName } = useParams();
 
   const product = mockProducts.find(
     (p) => slugify(p.name, { lower: true }) === productName

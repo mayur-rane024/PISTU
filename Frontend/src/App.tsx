@@ -47,7 +47,7 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/about-pistu" element={<About_Pistu />} />
           <Route path="/category" element={<CategoryProducts />} />
-          <Route path="/cart" element={<CartPage />} />
+          <Route path="/cart" element={<CategoryProducts />} />
 
           <Route
             path="/category/:categoryName"

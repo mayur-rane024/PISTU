@@ -7,7 +7,7 @@ const Footer = () => {
         {/* Brand Info */}
         <div>
           <img
-            src="./logo.png"
+            src="/logo.png"
             alt="PISTU Logo"
             className="h-16 mb-4 invert-[0.50] "
           />
