@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FaChevronUp, FaChevronDown } from "react-icons/fa";
 
 const CartSidebar: React.FC = () => {
   const [showCoupon, setShowCoupon] = useState(false);
@@ -17,22 +18,6 @@ const CartSidebar: React.FC = () => {
         PLACE ORDER
       </button>
 
-      <div className="mt-4 bg-purple-100 p-4 rounded-md">
-        <p className="text-center font-bold text-pink-700 uppercase">
-          You are missing out on!
-        </p>
-        <div className="flex justify-between items-center mt-2">
-          <p className="text-sm">
-            Save an additional ₹274 by adding membership to your cart.
-          </p>
-          <button className="bg-gray-200 px-3 py-1 rounded text-sm">ADD</button>
-        </div>
-        <p className="text-sm mt-2 text-gray-600">Free shipping on all orders</p>
-        <button className="text-blue-600 text-sm underline mt-1">
-          View all benefits
-        </button>
-      </div>
-
       {/* Coupon */}
       <div className="mt-4 border-t pt-4">
         <div
@@ -40,7 +25,7 @@ const CartSidebar: React.FC = () => {
           onClick={() => setShowCoupon(!showCoupon)}
         >
           <span className="font-semibold">Apply Coupon</span>
-          <span>{showCoupon ? "▲" : "▼"}</span>
+          <span>{showCoupon ? <FaChevronUp/> : <FaChevronDown/>  }</span>
         </div>
         {showCoupon && (
           <div className="mt-2 flex gap-2">
@@ -65,7 +50,7 @@ const CartSidebar: React.FC = () => {
           onClick={() => setShowVoucher(!showVoucher)}
         >
           <span className="font-semibold">Gift Voucher</span>
-          <span>{showVoucher ? "▲" : "▼"}</span>
+          <span>{showVoucher ? <FaChevronUp/> : <FaChevronDown/>}</span>
         </div>
         {showVoucher && (
           <div className="mt-2 flex gap-2">
@@ -100,7 +85,7 @@ const CartSidebar: React.FC = () => {
           onClick={() => setShowPoints(!showPoints)}
         >
           <span className="font-semibold">TSS Money / TSS Points</span>
-          <span>{showPoints ? "▲" : "▼"}</span>
+          <span>{showPoints ?<FaChevronUp/> : <FaChevronDown/>}</span>
         </div>
         {showPoints && (
           <div className="mt-2 text-sm text-gray-700 space-y-1">

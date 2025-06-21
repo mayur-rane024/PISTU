@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -9,8 +9,10 @@ const Navbar = () => {
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isToggleActive, setIsToggleActive] = useState(false);
 
-  const sidebarRef = useRef<HTMLDivElement | null>(null);
-  const searchRef = useRef<HTMLDivElement | null>(null);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
@@ -18,11 +20,11 @@ const Navbar = () => {
   const toggleActive = () => setIsToggleActive(!isToggleActive);
 
   useEffect(() => {
-    const handleClickOutsideSidebar = (event: MouseEvent) => {
+    const handleClickOutsideSidebar = (event: { target: any; }) => {
       if (
         isMenuOpen &&
         sidebarRef.current &&
-        !sidebarRef.current.contains(event.target as Node)
+        !sidebarRef.current.contains(event.target)
       ) {
         setIsMenuOpen(false);
         setIsAboutOpen(false);
@@ -35,11 +37,11 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   useEffect(() => {
-    const handleClickOutsideSearch = (event: MouseEvent) => {
+    const handleClickOutsideSearch = (event: { target: any; }) => {
       if (
         isSearchOpen &&
         searchRef.current &&
-        !searchRef.current.contains(event.target as Node)
+        !searchRef.current.contains(event.target)
       ) {
         setIsSearchOpen(false);
       }
@@ -57,6 +59,16 @@ const Navbar = () => {
   ];
 
   const suggestions = ["Suggestion 1", "Suggestion 2", "Suggestion 3"];
+
+  const policyLinks = [
+    { name: "Privacy Policy", id: "privacy-policy" },
+    { name: "Terms and Conditions", id: "terms-and-conditions" },
+    { name: "Refund and Returns Policy", id: "refund-and-returns-policy" },
+    { name: "Shipping Policy", id: "shipping-policy" },
+    { name: "Cookie Policy", id: "cookie-policy" },
+    { name: "Disclaimer", id: "disclaimer" },
+    { name: "Intellectual Property Notice", id: "intellectual-property-notice" },
+  ];
 
   return (
     <nav className="bg-[#f5e6cc] h-20 shadow-md text-[#4d3716] fixed top-0 w-full z-50">
@@ -77,14 +89,12 @@ const Navbar = () => {
                 onClick={toggleSearch}
                 className="ml-2 p-0 bg-transparent border-none cursor-pointer"
                 onMouseEnter={(e) => {
-                  const img = e.currentTarget
-                    .firstChild as HTMLImageElement | null;
-                  if (img) img.src = "/search-hover.png";
+                  const img = e.currentTarget.firstChild;
+                  if (img) (img as HTMLImageElement).src = "/search-hover.png";
                 }}
                 onMouseLeave={(e) => {
-                  const img = e.currentTarget
-                    .firstChild as HTMLImageElement | null;
-                  if (img) img.src = "/search.png";
+                  const img = e.currentTarget.firstChild;
+                  if (img) (img as HTMLImageElement).src = "/search.png";
                 }}
               >
                 <img src="/search.png" alt="Search" className="h-7 w-7" />
@@ -119,21 +129,20 @@ const Navbar = () => {
         {/* Center Logo */}
         <div className="flex justify-center absolute left-1/2 transform -translate-x-1/2">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
+            <img src="./logo.png" className="h-14 md:h-15" alt="logo" />
           </Link>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-1 md:gap-4">
-          <div className="h-8.5  w-10  bg-school-bag cursor-pointer" />
+          <div className="h-8.5 w-10 bg-school-bag cursor-pointer" />
           <img
-            src="/login.png"
+            src="./login.png"
             alt="Login"
             onClick={() => console.log("Login Clicked")}
-            onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
-            onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
+            onMouseEnter={(e) => (e.currentTarget.src = "./login-hover.png")}
+            onMouseLeave={(e) => (e.currentTarget.src = "./login.png")}
             className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
-            
           />
           <button
             onClick={toggleActive}
@@ -147,6 +156,59 @@ const Navbar = () => {
           </button>
         </div>
       </div>
+
+      {/* Policies Navigation Bar */}
+      {location.pathname === "/policies" && (
+        <div className="border-2 border-b-amber-50 h-auto bg-black/5 backdrop-blur-lg w-full">
+          <ul className="flex flex-wrap justify-center gap-4 py-2">
+            {policyLinks.map((link, index) => (
+              <li
+                key={index}
+                className="text-center text-sm md:text-md font-medium text-[#4d3716]"
+              >
+                <Link
+                  to={`#${link.id}`}
+                  className="hover:text-[#d7b788] px-2 py-1 block"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(link.id);
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
+      {/* Mini Navigation for Policies (Top-Right) */}
+      {/* {location.pathname === "/policies" && (
+        <div className="fixed top-20 right-3 w-25 h-30 sm:w-48 bg-transparent shadow-lg rounded-md z-40 ">
+          <ul className="text-sm text-[#4d3716]">
+            {policyLinks.map((link, index) => (
+              <li key={index} className="py-1">
+                <Link
+                  to={`#${link.id}`}
+                  className="block hover:text-[#3A2A1B] px-2 py-1"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    const element = document.getElementById(link.id);
+                    if (element) {
+                      element.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                >
+                  {link.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )} */}
 
       {/* Sidebar for mobile */}
       <div
