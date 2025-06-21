@@ -13,7 +13,7 @@ const Intellectual_Property_Notice = () => {
         className="absolute mt-10 right-0 top-0 w-1/4 sm:w-1/5 h-auto opacity-60"
       />
 
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2" style={{ fontFamily: "font5" }}>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-[#342b24]" style={{ fontFamily: "font5" }}>
         Intellectual Property Notice
       </h1>
 
@@ -35,7 +35,7 @@ const Intellectual_Property_Notice = () => {
           us at{" "}
           <a
             href="mailto:pistu.india@gmail.com"
-            className="text-blue-600 underline"
+            className="text-[#b98a69] underline"
           >
             <i>pistu.india@gmail.com</i>
           </a>.
