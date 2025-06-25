@@ -23,6 +23,9 @@ function App() {
   return (
     <>
       <ScrollToTop /> {/* ⬅️ Automatically scrolls to top on route change */}
+      <div>
+        
+      </div>
       <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Routes>
           <Route path="/newpage" element={<NewPage />} />

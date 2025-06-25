@@ -1,40 +1,95 @@
-import React from 'react';
+import React from "react";
 
 interface CartItemProps {
   image: string;
   name: string;
+  category?: string;
   price: number;
   size: string;
   quantity: number;
+  selected: boolean;
+  onToggleSelect: () => void;
+  onSizeChange: (size: string) => void;
+  onQuantityChange: (qty: number) => void;
   onRemove: () => void;
   onMoveToWishlist: () => void;
 }
 
-const CartItem: React.FC<CartItemProps> = ({ image, name, price, size, quantity, onRemove, onMoveToWishlist }) => {
+const CartItem: React.FC<CartItemProps> = ({
+  image,
+  name,
+  category,
+  price,
+  size,
+  quantity,
+  selected,
+  onToggleSelect,
+  onSizeChange,
+  onQuantityChange,
+  onRemove,
+  onMoveToWishlist,
+}) => {
   return (
-    <div className="flex items-center justify-between border-b py-4">
-      <img src={image} alt={name} className="w-24 h-24 object-cover" />
-      <div className="flex-1 ml-4">
-        <h3 className="text-lg font-semibold">{name}</h3>
-        <p className="text-gray-600">₹{price} MRP incl. of all taxes</p>
-        <div className="flex space-x-4 mt-2">
-          <select className="border p-1" value={size}>
-            <option>XS</option>
-            <option>S</option>
-            <option>M</option>
-            <option>L</option>
-            <option>XL</option>
-          </select>
-          <select className="border p-1" value={quantity}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-          </select>
+    <div className="flex items-start gap-4 p-4 border-b">
+      <input
+        type="checkbox"
+        checked={selected}
+        onChange={onToggleSelect}
+        className="mt-2"
+      />
+      <img src={image} alt={name} className="w-28 h-32 object-cover rounded" />
+      <div className="flex flex-col flex-grow">
+        <div className="flex justify-between items-start">
+          <div>
+            <p className="font-semibold">{name}</p>
+            <p className="text-gray-500 text-sm">{category}</p>
+          </div>
+          <div className="text-right font-semibold">₹ {price}</div>
         </div>
-      </div>
-      <div className="flex space-x-2">
-        <button onClick={onRemove} className="text-red-500">REMOVE</button>
-        <button onClick={onMoveToWishlist} className="text-blue-500">MOVE TO WISHLIST</button>
+        <div className="flex gap-4 mt-2">
+          <div>
+            <label className="text-sm text-gray-600">Size:</label>
+            <select
+              className="border px-2 py-1 rounded"
+              value={size}
+              onChange={(e) => onSizeChange(e.target.value)}
+            >
+              <option>XS</option>
+              <option>S</option>
+              <option>M</option>
+              <option>L</option>
+              <option>XL</option>
+            </select>
+          </div>
+          <div>
+            <label className="text-sm text-gray-600">Qty:</label>
+            <select
+              className="border px-2 py-1 rounded"
+              value={quantity}
+              onChange={(e) => onQuantityChange(Number(e.target.value))}
+            >
+              {[1, 2, 3, 4, 5].map((q) => (
+                <option key={q} value={q}>
+                  {q}
+                </option>
+              ))}
+            </select>
+          </div>
+        </div>
+        <div className="flex gap-4 mt-4">
+          <button
+            onClick={onRemove}
+            className="w-1/7 border border-[#3A2E25] text-[#3A2E25] py-1 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-100 cursor-pointer"
+          >
+            REMOVE
+          </button>
+          <button
+            onClick={onMoveToWishlist}
+            className="w-1/5 border border-[#3A2E25] text-[#3A2E25] py-1 rounded-xl flex items-center justify-center gap-2 hover:bg-gray-100 cursor-pointer"
+          >
+            MOVE TO WISHLIST
+          </button>
+        </div>
       </div>
     </div>
   );

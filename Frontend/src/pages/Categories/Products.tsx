@@ -19,7 +19,6 @@ const categoryHeroImages: { [key: string]: string } = {
   default: home2,
 };
 
-// Define the Product type
 interface Product {
   name: string;
   price: string;
@@ -29,7 +28,6 @@ interface Product {
   gender: string;
 }
 
-// Define props for ProductCard
 interface ProductCardProps {
   product: Product;
   categoryLabel: string;
@@ -41,58 +39,43 @@ const ProductCard = ({ product, categoryLabel }: ProductCardProps) => {
 
   return (
     <Link
-      to={`/category/${product.category}/${slugify(product.name, {
-        lower: true,
-      })}`}
+      to={`/category/${product.category}/${slugify(product.name, { lower: true })}`}
       className="group"
     >
       <div
-        className="bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-800 relative"
+        className="bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 relative"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {/* Like Button */}
         <button
           onClick={(e) => {
-            e.preventDefault(); // prevent navigation
+            e.preventDefault();
             setLiked(!liked);
-            if (!liked) {
-              alert(`${product.name} has been added to your wishlist.`);
-            } else {
-              alert(`${product.name} has been removed from your wishlist.`);
-            }
+            alert(
+              `${product.name} has been ${liked ? "removed from" : "added to"} your wishlist.`
+            );
           }}
-          className="absolute top-2 right-2 z-10 text-white bg-black/40 rounded-full p-2 hover:bg-black/70 cursor-pointer transition-colors"
+          className="absolute top-2 right-2 z-10 text-white bg-black/40 rounded-full p-2 hover:bg-black/70 transition-colors"
         >
-          {liked ? (
-            <FaHeart className="text-red-500 text-lg" />
-          ) : (
-            <FaRegHeart className="text-white text-lg" />
-          )}
+          {liked ? <FaHeart className="text-red-500 text-lg" /> : <FaRegHeart className="text-white text-lg" />}
         </button>
 
         <img
           src={isHovered ? product.hoverImage : product.image}
           alt={product.name}
-          className="w-full h-[350px] object-cover"
+          className="w-full h-[40vh] sm:h-[45vh] md:h-[50vh] object-cover"
         />
         <div className="absolute inset-0 bg-black/20 rounded-lg" />
       </div>
 
-      <div className="mt-3">
-        <h2 className="text-md text-[#3A2E25]" style={{ fontFamily: "font5" }}>
+      <div className="mt-2 px-2">
+        <h2 className="text-sm sm:text-lg text-[#3A2E25] truncate" style={{ fontFamily: "font5" }}>
           {product.name}
         </h2>
-        <p
-          className="text-xs text-gray-600 mt-1 capitalize"
-          style={{ fontFamily: "font5" }}
-        >
+        <p className="text-sm border-t-2 border-[#3A2E25] text-[#5e4c3f] mt-1 capitalize" style={{ fontFamily: "font6" }}>
           {categoryLabel}
         </p>
-        <p
-          className="text-sm text-black mt-1.5"
-          style={{ fontFamily: "font6" }}
-        >
+        <p className="text-sm text-black mt-1" style={{ fontFamily: "font6" }}>
           {product.price}
         </p>
       </div>
@@ -100,7 +83,6 @@ const ProductCard = ({ product, categoryLabel }: ProductCardProps) => {
   );
 };
 
-// Product Data
 const products: Product[] = [
   {
     name: "Belt",
@@ -152,7 +134,6 @@ const products: Product[] = [
   },
 ];
 
-// Categories
 interface Category {
   name: string;
   path: string;
@@ -177,8 +158,13 @@ const CategoryProducts = () => {
   const { categoryName } = useParams<{ categoryName?: string }>();
   const navigate = useNavigate();
   const currentCategory = categoryName ?? "";
+
   const [selectedGender, setSelectedGender] = useState("all");
   const [selectedPriceRange, setSelectedPriceRange] = useState(priceRanges[0]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [categorySearch, setCategorySearch] = useState("");
 
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const path = e.target.value;
@@ -190,12 +176,21 @@ const CategoryProducts = () => {
     return isNaN(numericPrice) ? 0 : numericPrice;
   };
 
+  const toggleCategorySelection = (categoryPath: string) => {
+    setSelectedCategories((prev) =>
+      prev.includes(categoryPath)
+        ? prev.filter((c) => c !== categoryPath)
+        : [...prev, categoryPath]
+    );
+  };
+
   const filteredProducts: Product[] =
-    currentCategory === ""
+    selectedCategories.length === 0
       ? products
-      : products.filter(
-          (product) =>
-            product.category.toLowerCase() === currentCategory.toLowerCase()
+      : products.filter((product) =>
+          selectedCategories.some((selected) =>
+            selected.includes(product.category)
+          )
         );
 
   const finalProducts = filteredProducts.filter(
@@ -207,15 +202,14 @@ const CategoryProducts = () => {
   );
 
   const heroImage =
-    categoryHeroImages[currentCategory.toLowerCase()] ||
-    categoryHeroImages.default;
+    categoryHeroImages[currentCategory.toLowerCase()] || categoryHeroImages.default;
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
 
       {/* Hero */}
-      <section className="w-full h-[500px] relative">
+      <section className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] relative">
         <img
           src={heroImage}
           alt={`${currentCategory || "All"} Category Hero`}
@@ -223,27 +217,26 @@ const CategoryProducts = () => {
         />
         <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
           <h1
-            className="text-6xl font-bold text-white capitalize"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white capitalize"
             style={{ fontFamily: "font5" }}
           >
-            {currentCategory ? currentCategory.replace("-", " ") : "All"}{" "}
-            Collections
+            {currentCategory ? currentCategory.replace("-", " ") : "All"} Collections
           </h1>
         </div>
       </section>
 
       {/* Gender Filter */}
-      <section className="w-full py-6 bg-white">
-        <div className="flex ml-8 gap-8">
+      <section className="w-full py-4 sm:py-6 bg-white">
+        <div className="flex justify-center sm:justify-start  ml-4 sm:ml-8 gap-4 sm:gap-8">
           {["All", "MEN", "WOMEN"].map((gender) => (
             <button
               key={gender}
               onClick={() => setSelectedGender(gender.toLowerCase())}
-              className={`text-2xl ${
+              className={`text-lg sm:text-xl md:text-2xl ${
                 selectedGender === gender.toLowerCase()
-                  ? "font-bold text-black border-b-2 border-black"
-                  : "text-gray-600"
-              } pb-2 hover:text-black transition-colors`}
+                  ? "font-bold text-[#3A2E25] border-b-2 border-[#3A2E25]"
+                  : "text-[#5e4c3f]"
+              } pb-1 sm:pb-2 hover:text-[#3A2E25] transition-colors`}
               style={{ fontFamily: "font5" }}
             >
               {gender}
@@ -252,42 +245,66 @@ const CategoryProducts = () => {
         </div>
       </section>
 
-      <main className="flex-grow pr-8  pb-4 flex flex-col">
-        <div className="flex  gap-10">
+      <main className="flex-grow px-4 sm:px-8 pb-4 flex flex-col">
+        <div className="flex gap-4 sm:gap-10">
           {/* Sidebar Filters */}
-          <aside className="w-64 hidden  bg-gray-200 md:block">
-            <div className="sticky  top-24 pl-8 space-y-8">
-              {/* Categories */}
+          <aside
+            className={`fixed inset-y-0 left-0 z-50 w-64 bg-gray-200 transform ${
+              isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+            } transition-transform duration-300 md:static md:translate-x-0 md:block ${
+              isSidebarOpen ? "block" : "hidden"
+            }`}
+          >
+            <div className="sticky top-24 pl-4 sm:pl-8 pr-4 space-y-6 py-4">
+              <button className="md:hidden text-xl font-bold mb-4" onClick={() => setIsSidebarOpen(false)}>
+                ✕
+              </button>
+
+              {/* Category Search */}
               <div>
-                <h3 className="text-lg font-semibold mb-3 my-2">CATEGORIES</h3>
-                <div className="flex flex-col gap-2">
-                  {categories.map((category, index) => (
-                    <Link
-                      to={category.path}
-                      key={index}
-                      className={`text-sm ${
-                        category.path === `/category/${categoryName}` ||
-                        (category.path === "/category" &&
-                          currentCategory === "")
-                          ? "text-black font-medium"
-                          : "text-gray-700"
-                      } hover:text-black hover:font-medium transition-colors`}
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
+                <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">SEARCH CATEGORY</h3>
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  value={categorySearch}
+                  onChange={(e) => setCategorySearch(e.target.value)}
+                  className="w-full p-2 rounded border border-gray-400 text-sm"
+                />
+              </div>
+
+              {/* Category Checkboxes */}
+              <div>
+                <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">CATEGORIES</h3>
+                <div className="flex flex-col gap-2 max-h-40 overflow-auto pr-1">
+                  {categories
+                    .filter((category) =>
+                      category.name.toLowerCase().includes(categorySearch.toLowerCase())
+                    )
+                    .map((category, index) => (
+                      <label key={index} className="flex items-center gap-2 text-sm text-gray-800">
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category.path)}
+                          onChange={() => toggleCategorySelection(category.path)}
+                        />
+                        {category.name}
+                      </label>
+                    ))}
                 </div>
               </div>
 
               {/* Price Ranges */}
               <div>
-                <h3 className="text-lg font-semibold mb-3">PRICE RANGE</h3>
+                <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">PRICE RANGE</h3>
                 <div className="flex flex-col gap-2">
                   {priceRanges.map((range, index) => (
                     <button
                       key={index}
-                      onClick={() => setSelectedPriceRange(range)}
-                      className={`text-sm text-left ${
+                      onClick={() => {
+                        setSelectedPriceRange(range);
+                        setIsSidebarOpen(false);
+                      }}
+                      className={`text-xs sm:text-sm text-left ${
                         selectedPriceRange.label === range.label
                           ? "text-black font-medium"
                           : "text-gray-700"
@@ -303,14 +320,15 @@ const CategoryProducts = () => {
 
           {/* Products */}
           <section className="flex-1">
-            {/* Mobile Category Dropdown */}
-            <div className="md:hidden mb-6">
+            {/* Mobile Filter Toggle and Category Dropdown */}
+            <div className="md:hidden mb-4 flex justify-between items-center">
+              <button className="text-sm font-medium bg-gray-200 px-4 py-2 rounded" onClick={() => setIsSidebarOpen(true)}>
+                Filters
+              </button>
               <select
-                value={
-                  currentCategory ? `/category/${currentCategory}` : "/category"
-                }
+                value={currentCategory ? `/category/${currentCategory}` : "/category"}
                 onChange={handleCategoryChange}
-                className="w-full p-2 border border-gray-300 rounded text-sm"
+                className="p-2 border border-gray-300 rounded text-xs sm:text-sm"
                 style={{ fontFamily: "font5" }}
               >
                 {categories.map((category, index) => (
@@ -322,23 +340,16 @@ const CategoryProducts = () => {
             </div>
 
             {finalProducts.length === 0 ? (
-              <p className="text-gray-500">
-                No products found in this category.
-              </p>
+              <p className="text-gray-500 text-sm sm:text-base">No products found in this category.</p>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 gap-4 pr-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                 {finalProducts.map((product, index) => {
                   const categoryLabel: string =
-                    categories.find((cat) =>
-                      cat.path.toLowerCase().includes(product.category)
-                    )?.name || product.category;
+                    categories.find((cat) => cat.path.toLowerCase().includes(product.category))?.name ||
+                    product.category;
 
                   return (
-                    <ProductCard
-                      key={index}
-                      product={product}
-                      categoryLabel={categoryLabel}
-                    />
+                    <ProductCard key={index} product={product} categoryLabel={categoryLabel} />
                   );
                 })}
               </div>
