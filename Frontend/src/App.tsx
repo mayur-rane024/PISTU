@@ -7,7 +7,7 @@ import Products from "./pages/Products";
 import NewPage from "./pages/NewPage";
 import CustomerStories from "./pages/Reviews";
 import OurPromise from "./pages/Promises";
-import Categories from "./pages/Categories/Categories";
+
 import Policies from "./pages/Policies/Policies";
 import Care from "./pages/Care";
 import Team from "./pages/Team";
@@ -18,6 +18,7 @@ import LoginPopup from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
 import ScrollToTop from "./pages/ScrollToTop"; // ⬅️ Add this line
 import CartPage from "./pages/CartPage/CartPage";
+import Component from "./pages/Craft";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 <CustomerStories />
                 <OurPromise />
                 <BestSeller />
+                <Component />
                 <About />
                 <Footer />
               </>

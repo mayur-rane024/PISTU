@@ -1,7 +1,7 @@
 const Shipping_Policy = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-transparent w-full sm:px-80 px-10 py-10 text-gray-800 flex-col rounded-lg text-center relative">
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-[#342b24]" style={{ fontFamily: "font5" }}>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2 mt-15 text-[#342b24]" style={{ fontFamily: "font5" }}>
         Shipping Policy
       </h1>
 
