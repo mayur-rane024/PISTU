@@ -16,13 +16,15 @@ import CategoryProducts from "./pages/Categories/Products";
 import BestSeller from "./pages/BestSeller/BestSeller";
 import LoginPopup from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import ScrollToTop from "./pages/ScrollToTop"; // ⬅️ Add this line
+import ScrollToTop from "./pages/ScrollToTop"; // ⬅ Add this line
 import CartPage from "./pages/CartPage/CartPage";
+import UserProfile from "./pages/UserProfile";
+import Process from "./pages/Process";
 
 function App() {
   return (
     <>
-      <ScrollToTop /> {/* ⬅️ Automatically scrolls to top on route change */}
+      <ScrollToTop /> {/* ⬅ Automatically scrolls to top on route change */}
       <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Routes>
           <Route path="/newpage" element={<NewPage />} />
@@ -36,6 +38,7 @@ function App() {
                 <CustomerStories />
                 <OurPromise />
                 <BestSeller />
+                <Process />
                 <About />
                 <Footer />
               </>
@@ -48,7 +51,7 @@ function App() {
           <Route path="/about-pistu" element={<About_Pistu />} />
           <Route path="/category" element={<CategoryProducts />} />
           <Route path="/cart" element={<CartPage />} />
-
+            <Route path="/profile" element={<UserProfile />} />
           <Route
             path="/category/:categoryName"
             element={<CategoryProducts />}

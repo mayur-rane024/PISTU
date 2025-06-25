@@ -1,6 +1,6 @@
 const Privacy_Policy = () => {
   return (
-    <div className="relative mt-10 min-h-screen flex items-center justify-center bg-[#fdf2e3] w-full sm:px-80  px-10 py-10 text-gray-800 flex-col rounded-lg text-center">
+    <div className="relative mt-20 min-h-screen flex items-center justify-center bg-[#fdf2e3] w-full sm:px-80  px-10 py-10 flex-col rounded-lg text-center">
       <img
         alt="mandala left"
         src="./mandala-left.png"

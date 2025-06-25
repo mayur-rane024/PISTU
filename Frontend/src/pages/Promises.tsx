@@ -32,7 +32,7 @@ const OurPromise: React.FC = () => {
           Our Promise
         </h2>
         <p
-          className="text-lg sm:text-xl text-[#3A2E25] max-w-2xl mx-auto mb-12"
+          className="text-lg sm:text-xl text-[#5e4c3f] max-w-2xl mx-auto mb-12"
           style={{ fontFamily: "font6" }}
         >
           When you choose PISTU, you're choosing more than a product. You're
@@ -52,7 +52,7 @@ const OurPromise: React.FC = () => {
               Exceptional Quality
             </h3>
             <p
-              className="text-[#3A2E25] max-w-xs sm:max-w-sm text-sm sm:text-base"
+              className="text-[#5e4c3f] max-w-xs sm:max-w-sm text-sm sm:text-base"
               style={{ fontFamily: "font6" }}
             >
               We use only the finest materials and employ master craftsmen who
@@ -72,7 +72,7 @@ const OurPromise: React.FC = () => {
               Timeless Durability
             </h3>
             <p
-              className="text-[#3A2E25] max-w-xs sm:max-w-sm text-sm sm:text-base"
+              className="text-[#5e4c3f] max-w-xs sm:max-w-sm text-sm sm:text-base"
               style={{ fontFamily: "font6" }}
             >
               Our products are designed and crafted to last, becoming more
@@ -81,7 +81,7 @@ const OurPromise: React.FC = () => {
           </div>
 
           {/* Unique Character */}
-          <div className="flex flex-col items-center p-4">
+          <div className="flex flex-col items-center mt-2 p-4">
             <div className="bg-[#fff9f1] rounded-full p-5 mb-4 border-[#fff0db] border-b-2 shadow-[inset_0_0px_10px_#ffe9ca]">
               <FaCube className="text-[#c6a26b] text-2xl" />
             </div>
@@ -92,7 +92,7 @@ const OurPromise: React.FC = () => {
               Unique Character
             </h3>
             <p
-              className="text-[#3A2E25] max-w-xs sm:max-w-sm text-sm sm:text-base"
+              className="text-[#5e4c3f] max-w-xs sm:max-w-sm text-sm sm:text-base"
               style={{ fontFamily: "font6" }}
             >
               Each piece carries the unique characteristics of the leather and

@@ -12,7 +12,7 @@ const Refund_and_Returns_Policy = () => {
         className="absolute top-0 right-0 w-1/4 sm:w-1/5 h-auto opacity-60 mt-10"
       />
 
-      <h1 className="text-2xl sm:text-3xl font-bold mb-2 text-[#342b24]" style={{ fontFamily: "font5" }}>
+      <h1 className="text-2xl sm:text-3xl font-bold mb-2 mt-15 text-[#342b24]" style={{ fontFamily: "font5" }}>
         Refund and Returns Policy
       </h1>
       <p className="mb-4 text-sm sm:text-base text-[#5e4c3f]" style={{ fontFamily: "font6" }}>

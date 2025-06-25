@@ -1,69 +1,114 @@
-import React from 'react';
-import CartItem from './CartItem';
-import CartSummary from './CartSummary';
-import CartSidebar from './CartSidebar';
+import React, { useState } from "react";
+import CartItem from "./CartItem";
+import CartSidebar from "./CartSidebar";
+import img1 from "../../feature/feature-1.avif";
+import Navbar from "../Navbar";
+import Footer from "../Footer";
 
 const CartPage: React.FC = () => {
-  const cartItems = [
+  const [cartItems, setCartItems] = useState([
     {
-      image: 'https://via.placeholder.com/150',
-      name: 'Naruto Shippuden: Gamakage Jiraiya Oversized Shirts',
+      image: img1,
+      name: "Naruto Shippuden: Gamakage Jiraiya",
+      category: "Oversized Shirts",
       price: 1699,
-      size: 'XS',
+      size: "XS",
       quantity: 1,
-      onRemove: () => {},
-      onMoveToWishlist: () => {},
+      selected: true,
     },
     {
-      image: 'https://via.placeholder.com/150',
-      name: 'Cotton-Linen Shirt Venus',
+      image: img1,
+      name: "Cotton-Linen Shirt: Venus",
+      category: "Cotton Linen Shirts",
       price: 1699,
-      size: 'S',
+      size: "S",
       quantity: 1,
-      onRemove: () => {},
-      onMoveToWishlist: () => {},
+      selected: true,
     },
     {
-      image: 'https://via.placeholder.com/150',
-      name: 'Looney Tunes: The End',
+      image: img1,
+      name: "Looney Tunes: The End",
+      category: "Graphic Tees",
       price: 699,
-      size: 'S',
+      size: "S",
       quantity: 2,
-      onRemove: () => {},
-      onMoveToWishlist: () => {},
+      selected: true,
     },
-  ];
+  ]);
 
-  const total = 4365.36;
-  const gst = 430.64;
-  const shipping = -50.00;
+  const handleItemChange = (
+    index: number,
+    changes: Partial<(typeof cartItems)[0]>
+  ) => {
+    const updated = [...cartItems];
+    updated[index] = { ...updated[index], ...changes };
+    setCartItems(updated);
+  };
+
+  const total = cartItems
+    .filter((item) => item.selected)
+    .reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
-    <div className="container mx-auto p-4 bg-white flex flex-col md:flex-row gap-6">
-      <div className="w-full md:w-2/3">
-        <div className="mb-4">
-          <p>Please select address.</p>
-          <button className="bg-blue-500 text-white py-1 px-2">ADD</button>
+    <>
+    <Navbar/>
+      <div className="container mx-auto p-4 bg-white flex flex-col pt-28 md:flex-row gap-6">
+        <div className="w-full md:w-2/3">
+          <div className="flex justify-between items-center mb-4">
+            <p>Please select address.</p>
+            <button className="text-teal-700 font-semibold">ADD</button>
+          </div>
+          <div className="border rounded-md">
+            <div className="p-4 flex items-center gap-2 border-b font-semibold text-green-700">
+              <input
+                type="checkbox"
+                checked={cartItems.every((item) => item.selected)}
+                onChange={(e) =>
+                  setCartItems(
+                    cartItems.map((item) => ({
+                      ...item,
+                      selected: e.target.checked,
+                    }))
+                  )
+                }
+              />
+              <span>
+                {cartItems.filter((i) => i.selected).length}/{cartItems.length}{" "}
+                ITEMS SELECTED
+              </span>
+              <span className="text-black"> (₹{total})</span>
+            </div>
+            {cartItems.map((item, index) => (
+              <CartItem
+                key={index}
+                image={item.image}
+                name={item.name}
+                category={item.category}
+                price={item.price}
+                size={item.size}
+                quantity={item.quantity}
+                selected={item.selected}
+                onToggleSelect={() =>
+                  handleItemChange(index, { selected: !item.selected })
+                }
+                onSizeChange={(newSize) =>
+                  handleItemChange(index, { size: newSize })
+                }
+                onQuantityChange={(newQty) =>
+                  handleItemChange(index, { quantity: newQty })
+                }
+                onRemove={() =>
+                  setCartItems(cartItems.filter((_, i) => i !== index))
+                }
+                onMoveToWishlist={() => alert("Moved to wishlist")}
+              />
+            ))}
+          </div>
         </div>
-        <div className="border p-4">
-          <p className="mb-4">3/3 ITEMS SELECTED (₹4796)</p>
-          {cartItems.map((item, index) => (
-            <CartItem
-              key={index}
-              image={item.image}
-              name={item.name}
-              price={item.price}
-              size={item.size}
-              quantity={item.quantity}
-              onRemove={item.onRemove}
-              onMoveToWishlist={item.onMoveToWishlist}
-            />
-          ))}
-        </div>
+        <CartSidebar cartItems={cartItems} />
       </div>
-      <CartSidebar />
-    
-    </div>
+      <Footer/>
+    </>
   );
 };
 

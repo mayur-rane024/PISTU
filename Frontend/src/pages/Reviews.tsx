@@ -36,7 +36,7 @@ const CustomerStories: React.FC = () => {
 
     <div className="bg-transparent py-16 px-6 md:px-20 text-center">
       <h2 className="text-4xl md:text-5xl font-serif text-[#3A2E25]" style ={{fontFamily : "font5"}}>Customer Stories</h2>
-      <p className="text-lg mt-4 text-[#3A2E25]" style ={{fontFamily : "font6"}}>
+      <p className="text-lg mt-4 text-[#5e4c3f]" style ={{fontFamily : "font6"}}>
         Hear from those who have made PISTU a part of their journey.
       </p>
       <div className="w-20 h-0.5 bg-[#A37853] mx-auto mt-6 mb-10"></div>

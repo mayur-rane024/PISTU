@@ -129,19 +129,23 @@ const Navbar = () => {
         {/* Center Logo */}
         <div className="flex justify-center absolute left-1/2 transform -translate-x-1/2">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <img src="./logo.png" className="h-14 md:h-15" alt="logo" />
+            <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
           </Link>
         </div>
 
         {/* Right Side */}
         <div className="flex items-center gap-1 md:gap-4">
-          <div className="h-8.5 w-10 bg-school-bag cursor-pointer" />
+          <Link to="/cart">
+            <div className="h-8.5 w-10 bg-school-bag cursor-pointer">
+              {/* Optional content like an icon or image can go here */}
+            </div>
+          </Link>
           <img
-            src="./login.png"
+            src="/login.png"
             alt="Login"
             onClick={() => console.log("Login Clicked")}
-            onMouseEnter={(e) => (e.currentTarget.src = "./login-hover.png")}
-            onMouseLeave={(e) => (e.currentTarget.src = "./login.png")}
+            onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
+            onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
             className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
           />
           <button
@@ -159,31 +163,31 @@ const Navbar = () => {
 
       {/* Policies Navigation Bar */}
       {location.pathname === "/policies" && (
-        <div className="border-2 border-b-amber-50 h-auto bg-black/5 backdrop-blur-lg w-full">
-          <ul className="flex flex-wrap justify-center gap-4 py-2">
-            {policyLinks.map((link, index) => (
-              <li
-                key={index}
-                className="text-center text-sm md:text-md font-medium text-[#4d3716]"
-              >
-                <Link
-                  to={`#${link.id}`}
-                  className="hover:text-[#d7b788] px-2 py-1 block"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById(link.id);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+  <div className="hidden md:block border-t-2 border-b-2 border-l-0 border-r-0 border-amber-50 h-auto bg-black/5 backdrop-blur-lg w-full">
+    <ul className="flex flex-wrap justify-center gap-4 py-2">
+      {policyLinks.map((link, index) => (
+        <li
+          key={index}
+          className="text-center text-sm md:text-md font-medium text-[#4d3716]"
+        >
+          <Link
+            to={`#${link.id}`}
+            className="hover:text-[#d7b788] px-2 py-1 block"
+            onClick={(e) => {
+              e.preventDefault();
+              const element = document.getElementById(link.id);
+              if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+              }
+            }}
+          >
+            {link.name}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
 
       {/* Mini Navigation for Policies (Top-Right) */}
       {/* {location.pathname === "/policies" && (
@@ -219,7 +223,7 @@ const Navbar = () => {
       >
         <div className="p-4">
           <ul
-            className="text-sm md:text-md font-medium divide-y divide-[#A37853] px-2 md:px-4"
+            className="text-md md:text-md font-medium divide-y divide-[#A37853] px-2 md:px-4"
             style={{ fontFamily: "font6" }}
           >
             {categories.map((category, index) =>

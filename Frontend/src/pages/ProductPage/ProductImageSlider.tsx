@@ -1,16 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
   const [currentImage, setCurrentImage] = useState(0);
-  const [magnifier, setMagnifier] = useState({
-    visible: false,
-    x: 0,
-    y: 0,
-    imageX: 0,
-    imageY: 0,
-  });
-  const imageRef = useRef<HTMLImageElement>(null);
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % images.length);
@@ -18,31 +10,6 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
 
   const prevImage = () => {
     setCurrentImage((prev) => (prev - 1 + images.length) % images.length);
-  };
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLImageElement>) => {
-    if (imageRef.current) {
-      const rect = imageRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      // Only show magnifier if within image bounds
-      if (x >= 0 && x <= rect.width && y >= 0 && y <= rect.height) {
-        setMagnifier({
-          visible: true,
-          x: e.clientX, // Use exact cursor position
-          y: e.clientY, // Use exact cursor position
-          imageX: (x / rect.width) * 100,
-          imageY: (y / rect.height) * 100,
-        });
-      } else {
-        setMagnifier((prev) => ({ ...prev, visible: false }));
-      }
-    }
-  };
-
-  const handleMouseLeave = () => {
-    setMagnifier((prev) => ({ ...prev, visible: false }));
   };
 
   return (
@@ -96,30 +63,14 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
             />
           ))}
         </div>
+
         {/* Main image and navigation buttons */}
         <div className="relative">
-          <div className="relative">
-            <img
-              ref={imageRef}
-              src={images[currentImage]}
-              alt="Product"
-              className="w-[40vw] h-[80vh] object-contain rounded-l-4xl"
-              onMouseMove={handleMouseMove}
-              onMouseLeave={handleMouseLeave}
-            />
-            {magnifier.visible && (
-              <div
-                className="absolute w-32 h-32 rounded-full border-2 border-[#d7b788] pointer-events-none overflow-hidden"
-                style={{
-                  left: magnifier.x - 64, // Center magnifier on cursor
-                  top: magnifier.y - 64,  // Center magnifier on cursor
-                  backgroundImage: `url(${images[currentImage]})`,
-                  backgroundSize: `${imageRef.current?.width! * 2}px ${imageRef.current?.height! * 2}px`,
-                  backgroundPosition: `${magnifier.imageX}% ${magnifier.imageY}%`,
-                }}
-              />
-            )}
-          </div>
+          <img
+            src={images[currentImage]}
+            alt="Product"
+            className="w-[40vw] h-[80vh]  rounded-l-4xl"
+          />
           <button
             onClick={prevImage}
             className="absolute left-4 top-1/2 transform -translate-y-1/2 text-4xl p-1.5 rounded-full bg-white/10 backdrop-blur-md text-[#d7b788] shadow-md hover:bg-[#d7b788] hover:text-[#000] transition"

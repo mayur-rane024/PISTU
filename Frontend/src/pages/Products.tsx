@@ -36,10 +36,10 @@ const Products = () => {
     >
       {/* Section Header */}
       <div className="text-center mb-10 bg-transparent">
-        <h1 className="text-4xl text-gray-800 mb-4" style={{ fontFamily: "font5" }}>
+        <h1 className="text-4xl text-[#342b24] mb-4" style={{ fontFamily: "font5" }}>
           Featured Collection
         </h1>
-        <p className="text-gray-600 text-md max-w-2xl mx-auto" style={{ fontFamily: "font6" }}>
+        <p className="text-[#5e4c3f] text-md max-w-2xl mx-auto" style={{ fontFamily: "font6" }}>
           Discover our handcrafted essentials, where form meets function in perfect harmony.
         </p>
       </div>
