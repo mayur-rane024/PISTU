@@ -37,7 +37,6 @@ function BestSeller() {
           Best Sellors
         </h2>
               <div className="w-20 h-0.5 bg-[#A37853] mx-auto mt-6 mb-10"></div>
-
       </div>
       <div className="w-full flex justify-center mt-10 mb-30">
         <Carousel slides={slideData} />

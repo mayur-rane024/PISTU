@@ -19,14 +19,13 @@ import ProductPage from "./pages/ProductPage/ProductPage";
 import ScrollToTop from "./pages/ScrollToTop"; // ⬅️ Add this line
 import CartPage from "./pages/CartPage/CartPage";
 import Component from "./pages/Craft";
+import UserSettings from "./pages/ProfileSetting";
 
 function App() {
   return (
     <>
       <ScrollToTop /> {/* ⬅️ Automatically scrolls to top on route change */}
-      <div>
-        
-      </div>
+      <div></div>
       <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Routes>
           <Route path="/newpage" element={<NewPage />} />
@@ -53,7 +52,7 @@ function App() {
           <Route path="/about-pistu" element={<About_Pistu />} />
           <Route path="/category" element={<CategoryProducts />} />
           <Route path="/cart" element={<CartPage />} />
-
+          <Route path="/profile" element={<UserSettings />} />
           <Route
             path="/category/:categoryName"
             element={<CategoryProducts />}

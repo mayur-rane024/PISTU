@@ -1,0 +1,9 @@
+{
+  "email": "user@example.com",
+  "firstName": "John",
+  "lastName": "Doe",
+  "name": "John Doe",
+  "photoURL": "https://via.placeholder.com/150",
+  "phoneNumber": 9876543210,
+  "address": "123, Street Name, City, State, 123456"
+}

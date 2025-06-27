@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
+import { Input } from "@/components/ui/input"
+import { CiHeart } from "react-icons/ci";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+  // const [searchQuery, setSearchQuery] = useState("");
   const [isAboutOpen, setIsAboutOpen] = useState(false);
   const [isToggleActive, setIsToggleActive] = useState(false);
 
@@ -15,7 +17,7 @@ const Navbar = () => {
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
+  // const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const toggleAbout = () => setIsAboutOpen(!isAboutOpen);
   const toggleActive = () => setIsToggleActive(!isToggleActive);
 
@@ -58,7 +60,7 @@ const Navbar = () => {
     "Team",
   ];
 
-  const suggestions = ["Suggestion 1", "Suggestion 2", "Suggestion 3"];
+  // const suggestions = ["Suggestion 1", "Suggestion 2", "Suggestion 3"];
 
   const policyLinks = [
     { name: "Privacy Policy", id: "privacy-policy" },
@@ -86,7 +88,26 @@ const Navbar = () => {
           </button>
 
           {/* Desktop Search */}
-          <div ref={searchRef} className="hidden md:flex flex-col relative">
+          <div className="relative w-80">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-500 left-3"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        />
+      </svg>
+      <Input type="text" placeholder="Search" className="pl-12 pr-4" />
+    </div>
+
+
+          {/* <div ref={searchRef} className="hidden md:flex flex-col relative">
             <div className="flex items-center">
               <button
                 onClick={toggleSearch}
@@ -126,11 +147,11 @@ const Navbar = () => {
                 </ul>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
 
         {/* Center Logo */}
-        <div className="flex justify-center absolute left-1/2 transform -translate-x-1/2">
+        <div className="flex item-center justify-center absolute left-1/2 ml-3 transform -translate-x-1/2">
           <Link to="/" onClick={() => setIsMenuOpen(false)}>
             <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
           </Link>
@@ -143,15 +164,17 @@ const Navbar = () => {
               {/* Optional content like an icon or image can go here */}
             </div>
           </Link>
-          <img
+          <Link
+          to="/profile"> <img
             src="/login.png"
             alt="Login"
             onClick={() => console.log("Login Clicked")}
             onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
             onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
             className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
-          />
-          <button
+          /></Link>
+         <CiHeart className="h-9 w-9"/>
+          {/* <button
             onClick={toggleActive}
             className="relative w-8 h-5 md:w-12 md:h-6 bg-[#000000] rounded-full items-center focus:outline-none"
           >
@@ -160,7 +183,7 @@ const Navbar = () => {
                 isToggleActive ? "translate-x-3 md:translate-x-6" : ""
               }`}
             />
-          </button>
+          </button> */}
         </div>
       </div>
 
