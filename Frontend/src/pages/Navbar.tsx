@@ -143,7 +143,8 @@ const Navbar = () => {
                     >
                       {sug}
                     </li>
-                  ))}
+                  ))}git status
+
                 </ul>
               </div>
             )}
