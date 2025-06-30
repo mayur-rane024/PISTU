@@ -23,24 +23,20 @@ const categoryHeroImages: { [key: string]: string } = {
 
 const CategoryProducts = () => {
   const [products] = useState<Product[]>(ProductData);
-
   const { categoryName } = useParams<{ categoryName?: string }>();
   const currentCategory = categoryName ?? "";
 
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
-  // Final filters
   const [selectedGender, setSelectedGender] = useState("all");
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [price, setPrice] = useState<number[]>([33]);
   const [isPriceFilterActive, setIsPriceFilterActive] = useState(false);
 
-  // Temporary filters
   const [tempGender, setTempGender] = useState("all");
   const [tempCategories, setTempCategories] = useState<string[]>([]);
   const [tempPrice, setTempPrice] = useState<number[]>([33]);
 
-  // Sync temp values on first render
   useEffect(() => {
     setTempGender(selectedGender);
     setTempCategories(selectedCategories);
@@ -76,6 +72,50 @@ const CategoryProducts = () => {
 
   const heroImage =
     categoryHeroImages[currentCategory.toLowerCase()] || categoryHeroImages.default;
+
+  const renderFilters = () => (
+    <>
+      {/* Category Filter */}
+      <div>
+        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">CATEGORIES</h3>
+        <div className="flex flex-col gap-2 overflow-auto pr-1 my-4">
+          {categories.map((category, index) => (
+            <label key={index} className="flex items-center gap-2 text-sm text-gray-800">
+              <input
+                type="checkbox"
+                checked={tempCategories.includes(category.path)}
+                onChange={() =>
+                  setTempCategories((prev) =>
+                    prev.includes(category.path)
+                      ? prev.filter((c) => c !== category.path)
+                      : [...prev, category.path]
+                  )
+                }
+              />
+              {category.name}
+            </label>
+          ))}
+        </div>
+      </div>
+
+      {/* Price Filter */}
+      <div className="mt-4">
+        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">PRICE RANGE</h3>
+        <div className="text-sm mb-4 text-gray-600">Showing products under ₹{tempPrice[0]}</div>
+        <Slider value={tempPrice} max={100} step={1} onValueChange={(value) => setTempPrice(value)} />
+      </div>
+
+      {/* Apply Button */}
+      <div className="mt-6">
+        <button
+          onClick={applyFilters}
+          className="w-full bg-[#3A2E25] text-white py-2 rounded-md text-sm hover:bg-[#2c211a] transition-colors"
+        >
+          Apply Filters
+        </button>
+      </div>
+    </>
+  );
 
   return (
     <div className="flex flex-col min-h-screen bg-white">
@@ -123,67 +163,19 @@ const CategoryProducts = () => {
         <div className="sm:hidden flex justify-end mb-4">
           <button
             className="px-4 py-2 border text-sm rounded-md text-[#3A2E25] border-[#3A2E25]"
-            onClick={() => setShowMobileFilters(!showMobileFilters)}
+            onClick={() => setShowMobileFilters(true)}
           >
-            {showMobileFilters ? "Hide Filters" : "Show Filters"}
+            Show Filters
           </button>
         </div>
 
+        {/* Desktop Sidebar Filters */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-10">
-          {/* Sidebar Filters */}
-          {(showMobileFilters || window.innerWidth >= 640) && (
-            <ScrollArea className="sm:block sm:w-[15vw] w-full border p-4 rounded-md">
-              {/* Category Filter */}
-              <div>
-                <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">CATEGORIES</h3>
-                <div className="flex flex-col gap-2 overflow-auto pr-1 my-4">
-                  {categories.map((category, index) => (
-                    <label
-                      key={index}
-                      className="flex items-center gap-2 text-sm text-gray-800"
-                    >
-                      <input
-                        type="checkbox"
-                        checked={tempCategories.includes(category.path)}
-                        onChange={() =>
-                          setTempCategories((prev) =>
-                            prev.includes(category.path)
-                              ? prev.filter((c) => c !== category.path)
-                              : [...prev, category.path]
-                          )
-                        }
-                      />
-                      {category.name}
-                    </label>
-                  ))}
-                </div>
-              </div>
-
-              {/* Price Filter */}
-              <div className="mt-4">
-                <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">PRICE RANGE</h3>
-                <div className="text-sm mb-4 text-gray-600">
-                  Showing products under ₹{tempPrice[0]}
-                </div>
-                <Slider
-                  value={tempPrice}
-                  max={100}
-                  step={1}
-                  onValueChange={(value) => setTempPrice(value)}
-                />
-              </div>
-
-              {/* Apply Button */}
-              <div className="mt-6">
-                <button
-                  onClick={applyFilters}
-                  className="w-full bg-[#3A2E25] text-white py-2 rounded-md text-sm hover:bg-[#2c211a] transition-colors"
-                >
-                  Apply Filters
-                </button>
-              </div>
+          <div className="hidden sm:block sm:w-[15vw]">
+            <ScrollArea className="border p-4 rounded-md">
+              {renderFilters()}
             </ScrollArea>
-          )}
+          </div>
 
           {/* Products */}
           <section className="flex-1">
@@ -212,6 +204,21 @@ const CategoryProducts = () => {
           </section>
         </div>
       </main>
+
+      {/* Mobile Modal for Filters */}
+      {showMobileFilters && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+          <div className="bg-white w-[90%] max-h-[90%] p-4 rounded-lg overflow-y-auto relative">
+            <button
+              onClick={() => setShowMobileFilters(false)}
+              className="absolute top-2 right-2 text-gray-600 hover:text-black text-2xl font-bold"
+            >
+              ×
+            </button>
+            {renderFilters()}
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

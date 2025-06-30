@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
-import { Input } from "@/components/ui/input"
+import { Input } from "@/components/ui/input";
 import { CiHeart } from "react-icons/ci";
 
 const Navbar = () => {
@@ -77,116 +77,65 @@ const Navbar = () => {
 
   return (
     <nav className="bg-[#f5e6cc] h-20 shadow-md text-[#4d3716] fixed top-0 w-full z-50">
-      <div className="container mx-auto flex justify-between items-center h-full px-4">
-        {/* Left Side */}
-        <div className="flex items-center gap-4">
-          <button
-            onClick={toggleMenu}
-            className="text-2xl focus:outline-none block"
-          >
-            {isMenuOpen ? <FiX /> : <FiMenu />}
-          </button>
-
-          {/* Desktop Search */}
-          <div className="relative w-80">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="absolute top-0 bottom-0 w-6 h-6 my-auto text-gray-500 left-3"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
+      <div className="container mx-auto flex justify-between items-center h-full px-4 min-w-0">
+    {/* Left Side */}
+    <div className="flex items-center gap-2 md:gap-8 min-w-0">
+      <button
+        onClick={toggleMenu}
+        className="text-2xl focus:outline-none block"
       >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+        {isMenuOpen ? <FiX /> : <FiMenu />}
+      </button>
+
+      {/* Desktop Search */}
+      <div className="relative w-80 ">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="absolute top-0 bottom-0 w-6 h-6 my-auto text-[#4d3716] left-3"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+          />
+        </svg>
+        <Input
+          type="text"
+          placeholder="What are you looking for?"
+          className="hidden md:block pl-10 w-68 border-2 border-[#4d3716]"
         />
-      </svg>
-      <Input type="text" placeholder="Search" className="pl-12 pr-4" />
+      </div>
     </div>
 
+    {/* Center Logo */}
+    <div className="absolute pl-4 left-1/2 transform -translate-x-1/2">
+      <Link to="/" onClick={() => setIsMenuOpen(false)}>
+        <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
+      </Link>
+    </div>
 
-          {/* <div ref={searchRef} className="hidden md:flex flex-col relative">
-            <div className="flex items-center">
-              <button
-                onClick={toggleSearch}
-                className="ml-2 p-0 bg-transparent border-none cursor-pointer"
-                onMouseEnter={(e) => {
-                  const img = e.currentTarget.firstChild;
-                  if (img) (img as HTMLImageElement).src = "/search-hover.png";
-                }}
-                onMouseLeave={(e) => {
-                  const img = e.currentTarget.firstChild;
-                  if (img) (img as HTMLImageElement).src = "/search.png";
-                }}
-              >
-                <img src="/search.png" alt="Search" className="h-7 w-7" />
-              </button>
-              {isSearchOpen && (
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search..."
-                  className="ml-2 w-64 h-8 px-4 text-sm bg-white rounded-md outline-none border-none transition-all duration-300"
-                />
-              )}
-            </div>
-            {isSearchOpen && (
-              <div className="absolute top-10 left-10 w-64 bg-white shadow-md rounded-md z-40">
-                <ul className="p-2 text-sm">
-                  {suggestions.map((sug, i) => (
-                    <li
-                      key={i}
-                      className="py-1 hover:bg-gray-100 cursor-pointer"
-                    >
-                      {sug}
-                    </li>
-                  ))}git status
-
-                </ul>
-              </div>
-            )}
-          </div> */}
-        </div>
-
-        {/* Center Logo */}
-        <div className="flex item-center justify-center absolute left-1/2 ml-3 transform -translate-x-1/2">
-          <Link to="/" onClick={() => setIsMenuOpen(false)}>
-            <img src="/logo.png" className="h-14 md:h-15" alt="logo" />
-          </Link>
-        </div>
-
-        {/* Right Side */}
-        <div className="flex items-center gap-1 md:gap-4">
-          <Link to="/cart">
-            <div className="h-8.5 w-10 bg-school-bag cursor-pointer">
-              {/* Optional content like an icon or image can go here */}
-            </div>
-          </Link>
-          <Link
-          to="/profile"> <img
-            src="/login.png"
-            alt="Login"
-            onClick={() => console.log("Login Clicked")}
-            onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
-            onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
-            className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
-          /></Link>
-         <CiHeart className="h-9 w-9"/>
-          {/* <button
-            onClick={toggleActive}
-            className="relative w-8 h-5 md:w-12 md:h-6 bg-[#000000] rounded-full items-center focus:outline-none"
-          >
-            <span
-              className={`absolute left-1 top-1 w-3 h-3 md:w-4 md:h-4 bg-white rounded-full transition-transform duration-300 ease-in-out ${
-                isToggleActive ? "translate-x-3 md:translate-x-6" : ""
-              }`}
-            />
-          </button> */}
-        </div>
-      </div>
+    {/* Right Side */}
+    <div className="flex items-center gap-2 md:gap-4 flex-shrink-0">
+      <Link to="/cart">
+        <div className="h-[34px] w-10 bg-school-bag cursor-pointer" />
+      </Link>
+      <Link to="/profile">
+        <img
+          src="/login.png"
+          alt="Login"
+          onClick={() => console.log("Login Clicked")}
+          onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
+          onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
+          className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
+        />
+      </Link>
+      <CiHeart className="h-8 w-8 md:h-9 md:w-9" />
+    </div>
+  </div>
 
       {/* Policies Navigation Bar */}
       {location.pathname === "/policies" && (

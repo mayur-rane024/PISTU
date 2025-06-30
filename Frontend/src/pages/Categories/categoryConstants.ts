@@ -4,7 +4,6 @@ export interface Category {
 }
 
 export const categories: Category[] = [
-  { name: "All Category", path: "/category" },
   { name: "Belts", path: "/category/belts" },
   { name: "Purse", path: "/category/purse" },
   { name: "Gloves", path: "/category/gloves" },
