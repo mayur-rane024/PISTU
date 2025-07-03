@@ -9,7 +9,7 @@ const Navbar = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   // const [searchQuery, setSearchQuery] = useState("");
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  const [isToggleActive, setIsToggleActive] = useState(false);
+  // const [isToggleActive, setIsToggleActive] = useState(false);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -19,7 +19,7 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   // const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const toggleAbout = () => setIsAboutOpen(!isAboutOpen);
-  const toggleActive = () => setIsToggleActive(!isToggleActive);
+  // const toggleActive = () => setIsToggleActive(!isToggleActive);
 
   useEffect(() => {
     const handleClickOutsideSidebar = (event: { target: any }) => {

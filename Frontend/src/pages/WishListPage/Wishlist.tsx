@@ -3,7 +3,6 @@ import { useWishlist } from "../../Context/wishlistContext"; // Adjust path as n
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router-dom";
 
 const WishlistPage: React.FC = () => {
   const { wishlist, removeFromWishlist } = useWishlist();

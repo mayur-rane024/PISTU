@@ -1,4 +1,4 @@
-import { collection, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, } from "firebase/firestore";
 import { db } from "../database/Firebase";
 import slugify from "slugify";
 import type { Product } from "../types/product";

@@ -42,7 +42,7 @@ const CategoryProducts = () => {
   const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   const [selectedGender, setSelectedGender] = useState("all");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [, setSelectedCategories] = useState<string[]>([]);
   const [price, setPrice] = useState<number[]>([100]); // max price initially
   const [isPriceFilterActive, setIsPriceFilterActive] = useState(false);
 
