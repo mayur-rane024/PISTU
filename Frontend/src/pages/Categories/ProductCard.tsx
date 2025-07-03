@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { FaHeart, FaRegHeart } from "react-icons/fa";
 import slugify from "slugify";
-import type { ProductCardProps } from "./productTypes";
+import type {ProductCardProps} from "../../types/product"
 
 const ProductCard = ({ product, categoryLabel }: ProductCardProps) => {
   const [isHovered, setIsHovered] = useState(false);

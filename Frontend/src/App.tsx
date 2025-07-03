@@ -5,9 +5,9 @@ import Home from "./pages/HeroPage/Hero";
 import About from "./pages/About";
 import Products from "./pages/Products";
 import NewPage from "./pages/NewPage";
-import CustomerStories from "./pages/Reviews";
+import CustomerStories from "./pages/CustomerStories/Reviews";
 import OurPromise from "./pages/Promises";
-
+import WishlistPage from "./pages/WishListPage/Wishlist";
 import Policies from "./pages/Policies/Policies";
 import Care from "./pages/Care";
 import Team from "./pages/Team";
@@ -50,9 +50,10 @@ function App() {
           <Route path="/care" element={<Care />} />
           <Route path="/team" element={<Team />} />
           <Route path="/about-pistu" element={<About_Pistu />} />
-          <Route path="/category" element={<CategoryProducts />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/profile" element={<UserSettings />} />
+          <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/category" element={<CategoryProducts />} />
           <Route
             path="/category/:categoryName"
             element={<CategoryProducts />}

@@ -133,7 +133,9 @@ const Navbar = () => {
           className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
         />
       </Link>
-      <CiHeart className="h-8 w-8 md:h-9 md:w-9" />
+      <Link to="/wishlist">
+      <CiHeart className="h-8 w-8 md:h-10 md:w-10 cursor-pointer hover:text-[#d7b788]" />
+      </Link>
     </div>
   </div>
 
