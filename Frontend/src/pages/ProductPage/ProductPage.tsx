@@ -45,7 +45,7 @@ const ProductPage: React.FC = () => {
     <div>
       <Navbar />
       <div className="flex flex-col md:flex-row justify-center bg-white items-start p-5 mt-20">
-       <div className="w-full md:w-1/2 md:sticky top-24 z-10 "> <ProductImageSlider images={product.images} /></div>
+       <div className="w-full md:w- md:sticky top-24 z-10 "> <ProductImageSlider images={product.images} /></div>
         <ProductDetails
           name={product.name}
           price={product.price}

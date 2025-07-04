@@ -131,7 +131,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({
   };
 
   return (
-   <ScrollArea className="w-full md:w-[72vw] h-[80vh] overflow-y-auto scrollbar-hide">
+   <ScrollArea className="w-full md:w-[90vw] h-[80vh] overflow-y-auto scrollbar-hide">
   <div className="p-4 w-full max-w-full box-border bg-[#ffffff] rounded-r-xl min-h-[80vh] relative">
         <div className="absolute top-4 right-4 flex space-x-2">
           <button
