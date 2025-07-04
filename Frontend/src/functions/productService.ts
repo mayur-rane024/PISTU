@@ -1,4 +1,5 @@
-import { collection, getDocs, } from "firebase/firestore";
+// productService.ts
+import { collection, getDocs } from "firebase/firestore";
 import { db } from "../database/Firebase";
 import slugify from "slugify";
 import type { Product } from "../types/product";
@@ -31,29 +32,38 @@ export const fetchProductBySlug = async (
 };
 
 export const fetchProductsByFilters = async (
-  category: string,
+  categories: string | string[],
   gender: string = "all",
   maxPrice?: number
 ): Promise<Product[]> => {
   try {
     const snapshot = await getDocs(collection(db, "Products"));
-    let products: Product[] = snapshot.docs.map((doc) => doc.data() as Product);
+    let products: Product[] = snapshot.docs.map((doc) => {
+      const product = doc.data() as Product;
+      return product;
+    });
 
-    // ✅ Filter by category if not "all"
-    if (category !== "all") {
-      products = products.filter(
-        (product) => product.category.toLowerCase() === category.toLowerCase()
+    console.log("Filter parameters:", { categories, gender, maxPrice });
+
+    // Filter by categories — skip if 'all' is present or it's empty
+    if (
+      categories !== "all" &&
+      !(Array.isArray(categories) && categories.includes("all"))
+    ) {
+      const categoryArray = Array.isArray(categories) ? categories : [categories];
+      products = products.filter((product) =>
+        categoryArray.includes(slugify(product.category, { lower: true }))
       );
     }
 
-    // ✅ Filter by gender
+    // Filter by gender — skip if gender is 'all'
     if (gender !== "all") {
       products = products.filter(
         (product) => product.gender.toLowerCase() === gender.toLowerCase()
       );
     }
 
-    // ✅ Filter by price
+    // Filter by price
     if (typeof maxPrice === "number") {
       products = products.filter((product) => product.price <= maxPrice);
     }

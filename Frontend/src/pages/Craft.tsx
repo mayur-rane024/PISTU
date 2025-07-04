@@ -82,7 +82,7 @@ export default function Component() {
                     <div className="flex-shrink-0 w-20 h-20 rounded-full border-2 mt-5 border-[#8f6a4f]  flex items-center justify-center bg-white">
                       <span className="text-[#8f6a4f]  font-serif text-lg font-medium ">{step.number}</span>
                     </div>
-                    <div className="pt-2">
+                    <div className="pt-2 text-left">
                       <h3 className="text-2xl font-serif text-[#342b24] mb-3" style={{fontFamily : "font6"}}>{step.title}</h3>
                       <p className="text-[#5e4c3f] leading-relaxed" style={{fontFamily : "font6"}}>{step.description}</p>
                     </div>

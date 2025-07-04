@@ -16,7 +16,7 @@ import CategoryProducts from "./pages/Categories/Products";
 import BestSeller from "./pages/BestSeller/BestSeller";
 import LoginPopup from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage/ProductPage";
-import ScrollToTop from "./pages/ScrollToTop"; // ⬅️ Add this line
+import ScrollToTop from "./pages/ScrollToTop";
 import CartPage from "./pages/CartPage/CartPage";
 import Component from "./pages/Craft";
 import UserSettings from "./pages/ProfileSetting";
@@ -39,7 +39,7 @@ function App() {
                 <CustomerStories />
                 <OurPromise />
                 <BestSeller />
-                <Component />
+                <Component/>
                 <About />
                 <Footer />
               </>
