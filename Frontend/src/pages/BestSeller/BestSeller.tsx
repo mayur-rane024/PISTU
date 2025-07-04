@@ -1,3 +1,4 @@
+// BestSeller.tsx usage (already correct)
 import { Carousel } from "../../components/ui/carousel.tsx";
 import img1 from "../../feature/About1.jpg";
 import img2 from "../../feature/About2.jpg";
@@ -30,14 +31,13 @@ const slideData = [
 function BestSeller() {
   return (
     <>
-      {/* Carousel Section */}
       <div className="text-center text-4xl md:text-5xl">
-        {" "}
         <h2 className="text-4xl text-[#342b24] mt-15" style={{ fontFamily: "font5" }}>
           Best Sellors
         </h2>
-              <div className="w-20 h-0.5 bg-[#A37853] mx-auto mt-6 mb-10"></div>
+        <div className="w-20 h-0.5 bg-[#A37853] mx-auto mt-6 mb-10"></div>
       </div>
+
       <div className="w-full flex justify-center mt-10 mb-30">
         <Carousel slides={slideData} />
       </div>

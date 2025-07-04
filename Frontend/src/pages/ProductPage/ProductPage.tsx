@@ -7,6 +7,7 @@ import ProductDetails from "./ProductDetails";
 import { fetchProductBySlug } from "../../functions/productService";
 import type { Product } from "../../types/product";
 
+
 const ProductPage: React.FC = () => {
   const { productName } = useParams();
   const [product, setProduct] = useState<Product | null>(null);
@@ -43,15 +44,17 @@ const ProductPage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col md:flex-row justify-center items-start p-4 mt-24">
-        <ProductImageSlider images={product.images} />
+      <div className="flex flex-col md:flex-row justify-center bg-white items-start p-5 mt-20">
+       <div className="w-full md:w-1/2 md:sticky top-24 z-10 "> <ProductImageSlider images={product.images} /></div>
         <ProductDetails
           name={product.name}
           price={product.price}
           discount={product.discount}
           description={product.description}
+          detailedDescription={product.detailedDescription}
           colors={product.colors}
           images={product.images}
+          stock={product.in_out_stock}
         />
       </div>
       <Footer />

@@ -13,7 +13,7 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
   };
 
   return (
-    <div className="w-full md:w-1/2">
+    <div className="">
       {/* Mobile Slider */}
       <div className="md:hidden relative">
         <img
@@ -39,7 +39,7 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
             <button
               key={index}
               onClick={() => setCurrentImage(index)}
-              className={`w-2 h-2 rounded-full ${
+              className={`w-1 h-1 rounded-full ${
                 currentImage === index ? 'bg-[#d7b788]' : 'bg-gray-400'
               }`}
             />
@@ -50,14 +50,14 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
       {/* Desktop Layout */}
       <div className="hidden md:flex flex-row items-start">
         {/* Thumbnail column */}
-        <div className="flex flex-col space-y-4 mr-4">
+        <div className="flex flex-col  space-y-4 mr-2">
           {images.map((img, index) => (
             <img
               key={index}
               src={img}
               alt={`Thumbnail ${index + 1}`}
-              className={`w-16 h-20 rounded-xl cursor-pointer ${
-                currentImage === index ? 'border-2 border-[#3A2E25]' : ''
+              className={`w-16 h-16 rounded-xl cursor-pointer ${
+                currentImage === index ? 'border-2 p-1 border-[#3A2E25]' : ''
               }`}
               onClick={() => setCurrentImage(index)}
             />
@@ -65,11 +65,11 @@ const ProductImageSlider: React.FC<{ images: string[] }> = ({ images }) => {
         </div>
 
         {/* Main image and navigation buttons */}
-        <div className="relative">
+        <div className="relative bg-white ">
           <img
             src={images[currentImage]}
             alt="Product"
-            className="w-[40vw] h-[80vh]  rounded-l-4xl"
+            className="w-[45vw] h-[85vh] p-5 rounded-l-xl"
           />
           <button
             onClick={prevImage}
