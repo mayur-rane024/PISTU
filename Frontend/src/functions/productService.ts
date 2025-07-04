@@ -30,8 +30,6 @@ export const fetchProductBySlug = async (
   }
 };
 
-
-
 export const fetchProductsByFilters = async (
   category: string,
   gender: string = "all",
@@ -66,6 +64,3 @@ export const fetchProductsByFilters = async (
     return [];
   }
 };
-
-
-

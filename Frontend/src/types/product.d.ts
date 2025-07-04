@@ -5,11 +5,13 @@ export interface Product {
   oldPrice: number;
   discount?: number;
   description: string;
+  detailedDescription: string;
   images: string[];
   colors: string[];
   gender: string,
   image: string, 
   hoverImage: string
+  in_out_stock: string;
 }
 
 export interface ProductCardProps {
