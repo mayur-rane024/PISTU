@@ -5,7 +5,7 @@ import { useEffect } from "react";
 export const useAutoSlider = (
   length: number,
   setIndex: React.Dispatch<React.SetStateAction<number>>,
-  intervalTime = 3000
+  intervalTime = 15000
 ) => {
   useEffect(() => {
     const interval = setInterval(() => {

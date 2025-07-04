@@ -1,3 +1,4 @@
+// CategoryProducts.tsx
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import slugify from "slugify";
@@ -10,10 +11,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import ProductCard from "./ProductCard";
 import type { Product } from "../../types/product";
 
-import { getCategories } from "../../functions/categoryService"; // adjust path
-import { fetchProductsByFilters } from "../../functions/productService"; // adjust path
+import { getCategories } from "../../functions/categoryService";
+import { fetchProductsByFilters } from "../../functions/productService";
 
-// Static hero images mapping (you can keep this or fetch dynamically)
 import home1 from "../../assets/Home1.jpg";
 import home2 from "../../assets/Home2.jpg";
 import home3 from "../../assets/Home3.jpg";
@@ -30,28 +30,31 @@ const CategoryProducts = () => {
   const { categoryName } = useParams<{ categoryName?: string }>();
   const currentCategory = categoryName ?? "";
 
-  // Categories from Firebase
   const [categories, setCategories] = useState<{ name: string }[]>([]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
 
-  // Products state
   const [products, setProducts] = useState<Product[]>([]);
   const [productsLoading, setProductsLoading] = useState(false);
 
-  // Filters state
   const [showMobileFilters, setShowMobileFilters] = useState(false);
-
   const [selectedGender, setSelectedGender] = useState("all");
-  const [, setSelectedCategories] = useState<string[]>([]);
-  const [price, setPrice] = useState<number[]>([100]); // max price initially
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [price, setPrice] = useState<number[]>([100]);
   const [isPriceFilterActive, setIsPriceFilterActive] = useState(false);
 
-  // Temp filter states for modal/filters UI
-  const [tempGender, setTempGender] = useState("all");
-  const [tempCategories, setTempCategories] = useState<string[]>([]);
-  const [tempPrice, setTempPrice] = useState<number[]>([100]);
+  const [tempGender, setTempGender] = useState(selectedGender);
+  const [tempCategories, setTempCategories] =
+    useState<string[]>(selectedCategories);
+  const [tempPrice, setTempPrice] = useState<number[]>(price);
 
-  // Fetch categories on mount
+  // Sync temp states with applied filters
+  useEffect(() => {
+    setTempGender(selectedGender);
+    setTempCategories(selectedCategories);
+    setTempPrice(price);
+  }, [selectedGender, selectedCategories, price]);
+
+  // Fetch categories
   useEffect(() => {
     const fetchCats = async () => {
       setCategoriesLoading(true);
@@ -75,76 +78,99 @@ const CategoryProducts = () => {
     setShowMobileFilters(false);
   };
 
-  // Fetch products whenever filters or category change
+  // Fetch products
   useEffect(() => {
-   const categoryToFilter = currentCategory || "all";
+    const categoriesToFilter =
+      selectedCategories.length > 0
+        ? selectedCategories
+        : currentCategory !== "" && currentCategory !== "all"
+        ? [currentCategory]
+        : "all";
 
-  const fetchFilteredProducts = async () => {
-    setProductsLoading(true);
-    try {
-      const filteredProducts = await fetchProductsByFilters(
-        categoryToFilter.toLowerCase(),
-        selectedGender,
-        isPriceFilterActive ? price[0] : undefined
-      );
-      setProducts(filteredProducts);
-    } catch (err) {
-      console.error("Error fetching products:", err);
-      setProducts([]);
-    }
-    setProductsLoading(false);
-  };
+    const fetchFilteredProducts = async () => {
+      setProductsLoading(true);
+      try {
+        const filteredProducts = await fetchProductsByFilters(
+          categoriesToFilter,
+          selectedGender,
+          isPriceFilterActive ? price[0] : undefined
+        );
+        setProducts(filteredProducts);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+        setProducts([]);
+      }
+      setProductsLoading(false);
+    };
 
-  fetchFilteredProducts();
-}, [currentCategory, selectedGender, price, isPriceFilterActive]);
+    fetchFilteredProducts();
+  }, [
+    currentCategory,
+    selectedGender,
+    price,
+    isPriceFilterActive,
+    selectedCategories,
+  ]);
 
-  // Generate category paths from Firebase category names for filtering UI
   const categoriesWithPaths = categories.map((cat) => ({
     name: cat.name,
     path: slugify(cat.name, { lower: true }),
   }));
 
-  // Hero image for category
   const heroImage =
-    categoryHeroImages[currentCategory.toLowerCase()] || categoryHeroImages.default;
+    categoryHeroImages[currentCategory.toLowerCase()] ||
+    categoryHeroImages.default;
 
-  // Render category and price filters UI
   const renderFilters = () => (
     <>
-      {/* Category Filter */}
       <div>
-        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">CATEGORIES</h3>
-        <div className="flex flex-col gap-2 overflow-auto pr-1 my-4 max-h-[200px]">
-          {categoriesLoading ? (
-            <p>Loading categories...</p>
-          ) : (
-            categoriesWithPaths.map((category, index) => (
-              <label
-                key={index}
-                className="flex items-center gap-2 text-sm text-gray-800"
-              >
-                <input
-                  type="checkbox"
-                  checked={tempCategories.includes(category.path)}
-                  onChange={() =>
-                    setTempCategories((prev) =>
-                      prev.includes(category.path)
-                        ? prev.filter((c) => c !== category.path)
-                        : [...prev, category.path]
-                    )
-                  }
-                />
-                {category.name}
-              </label>
-            ))
-          )}
-        </div>
+        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">
+          CATEGORIES
+        </h3>
+        {currentCategory && currentCategory !== "all" ? (
+          <p className="text-sm text-gray-600">
+            Category filter disabled when viewing a specific category.
+          </p>
+        ) : (
+          <div className="flex flex-col gap-2 overflow-auto pr-1 my-4 max-h-[200px]">
+            {categoriesLoading ? (
+              <p>Loading categories...</p>
+            ) : (
+              categoriesWithPaths.map((category, index) => (
+                <label
+                  key={index}
+                  className="flex items-center gap-2 text-sm text-gray-800"
+                >
+                  <input
+                    type="checkbox"
+                    checked={tempCategories.includes(category.path)}
+                    onChange={() =>
+                      setTempCategories((prev) =>
+                        prev.includes(category.path)
+                          ? prev.filter((c) => c !== category.path)
+                          : [...prev, category.path]
+                      )
+                    }
+                  />
+                  {category.name}
+                </label>
+              ))
+            )}
+          </div>
+        )}
       </div>
 
-      {/* Price Filter */}
       <div className="mt-4">
-        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">PRICE RANGE</h3>
-        <div className="text-sm mb-4 text-gray-600">Showing products under ₹{tempPrice[0]}</div>
+        <h3 className="text-md sm:text-lg font-semibold mb-2 sm:mb-3">
+          PRICE RANGE
+        </h3>
+        <div className="text-sm mb-4 text-gray-600">
+          {isPriceFilterActive ? (
+            <>Showing products under ₹{tempPrice[0]}</>
+          ) : (
+            <>Apply filters to refine results</>
+          )}
+        </div>
         <Slider
           value={tempPrice}
           max={100}
@@ -153,7 +179,6 @@ const CategoryProducts = () => {
         />
       </div>
 
-      {/* Apply Button */}
       <div className="mt-6">
         <button
           onClick={applyFilters}
@@ -168,8 +193,6 @@ const CategoryProducts = () => {
   return (
     <div className="flex flex-col min-h-screen bg-white">
       <Navbar />
-
-      {/* Hero */}
       <section className="w-full h-[60vh] sm:h-[70vh] md:h-[80vh] relative">
         <img
           src={heroImage}
@@ -181,12 +204,12 @@ const CategoryProducts = () => {
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white capitalize"
             style={{ fontFamily: "font5" }}
           >
-            {currentCategory ? currentCategory.replace("-", " ") : "All"} Collections
+            {currentCategory ? currentCategory.replace("-", " ") : "All"}{" "}
+            Collections
           </h1>
         </div>
       </section>
 
-      {/* Gender Filter */}
       <section className="w-full py-4 sm:py-6 bg-white">
         <div className="flex justify-center sm:justify-start ml-4 sm:ml-8 gap-4 sm:gap-8">
           {["All", "MEN", "WOMEN"].map((gender) => (
@@ -207,7 +230,6 @@ const CategoryProducts = () => {
       </section>
 
       <main className="flex-grow px-4 sm:px-8 pb-4 flex flex-col">
-        {/* Mobile filter toggle */}
         <div className="sm:hidden flex justify-end mb-4">
           <button
             className="px-4 py-2 border text-sm rounded-md text-[#3A2E25] border-[#3A2E25]"
@@ -217,13 +239,13 @@ const CategoryProducts = () => {
           </button>
         </div>
 
-        {/* Desktop Sidebar Filters */}
         <div className="flex flex-col sm:flex-row gap-4 sm:gap-10">
           <div className="hidden sm:block sm:w-[15vw]">
-            <ScrollArea className="border p-4 rounded-md">{renderFilters()}</ScrollArea>
+            <ScrollArea className="border p-4 rounded-md">
+              {renderFilters()}
+            </ScrollArea>
           </div>
 
-          {/* Products */}
           <section className="flex-1">
             {productsLoading ? (
               <p>Loading products...</p>
@@ -236,7 +258,9 @@ const CategoryProducts = () => {
                 {products.map((product, index) => {
                   const categoryLabel: string =
                     categories.find(
-                      (cat) => cat.name.toLowerCase() === product.category.toLowerCase()
+                      (cat) =>
+                        cat.name.toLowerCase() ===
+                        product.category.toLowerCase()
                     )?.name || product.category;
 
                   return (
@@ -253,7 +277,6 @@ const CategoryProducts = () => {
         </div>
       </main>
 
-      {/* Mobile Modal for Filters */}
       {showMobileFilters && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-white w-[90%] max-h-[90%] p-4 rounded-lg overflow-y-auto relative">
