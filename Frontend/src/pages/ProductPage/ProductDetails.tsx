@@ -8,7 +8,6 @@ import type { wishlistItem } from "../../types/wishlistItem";
 import { motion, AnimatePresence } from "framer-motion";
 import { FiChevronDown, FiChevronUp } from "react-icons/fi";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import ReviewSection from "../../components/ReviewSection"; 
 
 interface ProductDetailsProps {
    id: string; // ✅ Add this
@@ -23,7 +22,6 @@ interface ProductDetailsProps {
 }
 
 const ProductDetails: React.FC<ProductDetailsProps> = ({
-  id,
   name,
   price,
   discount = 0,
