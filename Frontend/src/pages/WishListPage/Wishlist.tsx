@@ -1,11 +1,33 @@
-import React from "react";
-import { useWishlist } from "../../Context/wishlistContext"; // Adjust path as needed
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar";
 import Footer from "../Footer";
 import { IoClose } from "react-icons/io5";
+import { getWishListItems, removeFromWishlist } from "../../functions/wishlistService";
+import type { wishlistItem } from "../../types/wishlistItem";
+
+interface WishlistProduct extends wishlistItem {
+  id: string;
+}
 
 const WishlistPage: React.FC = () => {
-  const { wishlist, removeFromWishlist } = useWishlist();
+  const [wishlist, setWishlist] = useState<WishlistProduct[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchWishlist = async () => {
+    setLoading(true);
+    const items = await getWishListItems();
+    setWishlist(items as WishlistProduct[]);
+    setLoading(false);
+  };
+
+  const handleRemove = async (id: string) => {
+    await removeFromWishlist(id);
+    setWishlist((prev) => prev.filter((item) => item.id !== id));
+  };
+
+  useEffect(() => {
+    fetchWishlist();
+  }, []);
 
   return (
     <div className="flex flex-col min-h-screen bg-[#fdf8f3]">
@@ -16,12 +38,13 @@ const WishlistPage: React.FC = () => {
           Your Wishlist
         </h1>
 
-        {wishlist.length === 0 ? (
+        {loading ? (
+          <div className="text-center text-gray-500 mt-20">Loading...</div>
+        ) : wishlist.length === 0 ? (
           <div className="text-gray-600 text-center mt-20">
             <p className="text-lg">No items in your wishlist.</p>
           </div>
         ) : (
-          
           <div className="grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 my-10">
             {wishlist.map((product) => (
               <div
@@ -30,7 +53,7 @@ const WishlistPage: React.FC = () => {
               >
                 {/* Remove button */}
                 <button
-                  onClick={() => removeFromWishlist(product.id)}
+                  onClick={() => handleRemove(product.id)}
                   className="absolute top-2 right-2 text-2xl font-bold cursor-pointer text-[#3A2E25] hover:text-[#806552]"
                   aria-label={`Remove ${product.name} from wishlist`}
                   title="Remove from Wishlist"
@@ -41,7 +64,7 @@ const WishlistPage: React.FC = () => {
                 <img
                   src={product.image}
                   alt={product.name}
-                  className="w-full h-48 md:h-56 object-content rounded-lg"
+                  className="w-full h-48 md:h-56 object-cover rounded-lg"
                 />
 
                 <div className="mt-3 flex-grow">

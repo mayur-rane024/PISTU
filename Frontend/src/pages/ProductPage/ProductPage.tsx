@@ -5,19 +5,25 @@ import Footer from "../Footer";
 import ProductImageSlider from "./ProductImageSlider";
 import ProductDetails from "./ProductDetails";
 import { fetchProductBySlug } from "../../functions/productService";
-import type { Product } from "../../types/product";
-
+import type { ProductWithId } from "../../types/product";
+import ReviewSection from "../../components/ReviewSection"
 
 const ProductPage: React.FC = () => {
-  const { productName } = useParams();
-  const [product, setProduct] = useState<Product | null>(null);
+  const { productName } = useParams<{ productName: string }>();
+  const [product, setProduct] = useState<ProductWithId | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getProduct = async () => {
-      const fetchedProduct = await fetchProductBySlug(productName!);
-      setProduct(fetchedProduct);
-      setLoading(false);
+      try {
+        const fetchedProduct = await fetchProductBySlug(productName!);
+        setProduct(fetchedProduct);
+      } catch (error) {
+        console.error("Failed to fetch product:", error);
+        setProduct(null);
+      } finally {
+        setLoading(false);
+      }
     };
 
     getProduct();
@@ -44,9 +50,13 @@ const ProductPage: React.FC = () => {
   return (
     <div>
       <Navbar />
-      <div className="flex flex-col md:flex-row justify-center bg-white items-start p-5 mt-20">
-       <div className="w-full md:w- md:sticky top-24 z-10 "> <ProductImageSlider images={product.images} /></div>
+      <div className="bg-white">
+      <div className="flex flex-col md:flex-row justify-center  items-start p-5 mt-20">
+        <div className="w-full md:sticky top-24 z-10">
+          <ProductImageSlider images={product.images} />
+        </div>
         <ProductDetails
+          id={product.id}
           name={product.name}
           price={product.price}
           discount={product.discount}
@@ -57,6 +67,8 @@ const ProductPage: React.FC = () => {
           stock={product.in_out_stock}
         />
       </div>
+          { product.id && <ReviewSection productId={product.id} /> }
+          </div>
       <Footer />
     </div>
   );
