@@ -18,3 +18,4 @@ export interface ProductCardProps {
   product: Product;
   categoryLabel: Product["category"];
 }
+export type ProductWithId = Product & { id: string };

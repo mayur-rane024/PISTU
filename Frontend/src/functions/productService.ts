@@ -2,16 +2,18 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../database/Firebase";
 import slugify from "slugify";
-import type { Product } from "../types/product";
+import type { Product, ProductWithId } from "../types/product";
 
 export const fetchProductBySlug = async (
   slug: string
-): Promise<Product | null> => {
+): Promise<ProductWithId | null> => {
   try {
     const snapshot = await getDocs(collection(db, "Products"));
-    const products: Product[] = snapshot.docs.map(
-      (doc) => doc.data() as Product
-    );
+
+    const products: ProductWithId[] = snapshot.docs.map((doc) => ({
+      ...(doc.data() as Product),
+      id: doc.id, // 🔥 Add document ID here
+    }));
 
     const foundProduct = products.find(
       (p) => slugify(p.name, { lower: true }) === slug
@@ -19,8 +21,7 @@ export const fetchProductBySlug = async (
 
     if (foundProduct?.oldPrice && foundProduct?.price) {
       foundProduct.discount = Math.round(
-        ((foundProduct.oldPrice - foundProduct.price) / foundProduct.oldPrice) *
-          100
+        ((foundProduct.oldPrice - foundProduct.price) / foundProduct.oldPrice) * 100
       );
     }
 
@@ -50,7 +51,9 @@ export const fetchProductsByFilters = async (
       categories !== "all" &&
       !(Array.isArray(categories) && categories.includes("all"))
     ) {
-      const categoryArray = Array.isArray(categories) ? categories : [categories];
+      const categoryArray = Array.isArray(categories)
+        ? categories
+        : [categories];
       products = products.filter((product) =>
         categoryArray.includes(slugify(product.category, { lower: true }))
       );
