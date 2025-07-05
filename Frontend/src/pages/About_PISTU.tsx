@@ -5,27 +5,27 @@ const About_Pistu = () => {
   return (
     <>
       <Navbar />
-      <div className="min-h-screen flex items-center justify-center bg-[#fdf2e3] px-4 sm:px-8 md:px-20 lg:px-80 py-10 w-full text-gray-800 flex-col rounded-lg text-center">
+      <div className="min-h-[80vh] mt-20 flex items-center justify-center bg-[#fdf2e3] px-4 sm:px-8 md:px-20 lg:px-80 py-10 w-full text-gray-800 flex-col rounded-lg text-center">
         <img
           alt="mandala left"
           src="./mandala-left.png"
-          className="absolute left-0 top-0 w-1/12 sm:w-1/6 h-auto opacity-60 hidden sm:block"
+          className="absolute left-0 top-30 w-1/12 sm:w-1/6 h-auto opacity-60 hidden sm:block"
         />
         <img
           alt="mandala right"
           src="./mandala-right.png"
-          className="absolute right-0 top-0 w-1/12 sm:w-1/6 h-auto opacity-60 hidden sm:block"
+          className="absolute right-0 top-30 w-1/12 sm:w-1/6 h-auto opacity-60 hidden sm:block"
         />
 
         <h1
-          className="text-2xl sm:text-3xl text-[#342b24] font-bold mb-6 mt-4"
+          className="text-2xl sm:text-4xl text-[#342b24] font-bold mb-6 "
           style={{ fontFamily: "font5" }}
         >
           About Us
         </h1>
 
         <p
-          className="mb-4 text-[#5e4c3f] text-base sm:text-lg max-w-2xl"
+          className="mb-4 text-[#5e4c3f] text-base sm:text-xl max-w-2xl"
           style={{ fontFamily: "font6" }}
         >
           Welcome to the epitome of luxury and craftsmanship in the world of
@@ -35,7 +35,7 @@ const About_Pistu = () => {
         <div className="w-32 sm:w-40 h-0.5 bg-[#A37853] mx-auto mb-6 mt-3"></div>
 
         <div
-          className="px-4 sm:px-10 md:px-20 text-[#5e4c3f] text-xs sm:text-sm max-w-3xl"
+          className="px-4 sm:px-10 md:px-20 text-[#5e4c3f] text-xs sm:text-[100%] max-w-3xl"
           style={{ fontFamily: "font6" }}
         >
           <p className="mb-4">
@@ -56,9 +56,9 @@ const About_Pistu = () => {
         </div>
       </div>
 
-      <div className="min-h-screen flex items-center justify-center bg-transparent px-4 sm:px-8 md:px-20 lg:px-80 py-10 w-full text-gray-800 flex-col rounded-lg text-center relative">
+      <div className="min-h-[80vh] flex items-center justify-center bg-transparent px-4 sm:px-8 md:px-20 lg:px-80 py-10 w-full text-gray-800 flex-col rounded-lg text-center relative">
         <h1
-          className="text-2xl sm:text-3xl font-bold mb-6 mt-4"
+          className="text-2xl sm:text-4xl font-bold mb-6 text-[#342b24]"
           style={{ fontFamily: "font5" }}
         >
           Vision & Mission
@@ -68,16 +68,16 @@ const About_Pistu = () => {
 
         <div className="px-4 sm:px-10 md:px-25 max-w-3xl">
           <h2
-            className="text-lg sm:text-xl font-semibold mt-6 mb-2"
+            className="text-lg sm:text-3xl font-semibold mt-6 mb-2 text-[#342b24]"
             style={{ fontFamily: "font5" }}
           >
             Vision
           </h2>
           <div
-            className="text-xs sm:text-sm"
+            className="text-xs sm:text-[100%]"
             style={{ fontFamily: "font6" }}
           >
-            <p className="mb-2">
+            <p className="mb-2 text-[#5e4c3f]">
               Our vision is to craft unique, handmade leather goods that tells a
               story of care and passion in every stitch, ensuring lasting
               quality and individuality.
@@ -85,16 +85,16 @@ const About_Pistu = () => {
           </div>
 
           <h2
-            className="text-lg sm:text-xl font-semibold mt-6 mb-2"
+            className="text-lg sm:text-3xl font-semibold mt-6 mb-2 text-[#342b24]"
             style={{ fontFamily: "font5" }}
           >
             Mission
           </h2>
           <div
-            className="text-xs sm:text-sm"
+            className="text-xs sm:text-[100%]"
             style={{ fontFamily: "font6" }}
           >
-            <p className="mb-2">
+            <p className="mb-2 text-[#5e4c3f]">
               Our mission is to celebrate the heritage of skilled artisans,
               ensuring the legacy of traditional craftsmanship while providing
               tasteful individuals with unique, high quality leather goods that

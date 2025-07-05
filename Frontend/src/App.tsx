@@ -8,8 +8,7 @@ import NewPage from "./pages/NewPage";
 import CustomerStories from "./pages/CustomerStories/Reviews";
 import OurPromise from "./pages/Promises";
 import WishlistPage from "./pages/WishListPage/Wishlist";
-import Policies from "./pages/Policies/Policies";
-import Care from "./pages/Care";
+import Care from "./pages/Care/Care";
 import Team from "./pages/Team";
 import About_Pistu from "./pages/About_PISTU";
 import CategoryProducts from "./pages/Categories/Products";
@@ -20,11 +19,18 @@ import ScrollToTop from "./pages/ScrollToTop";
 import CartPage from "./pages/CartPage/CartPage";
 import Component from "./pages/Craft";
 import UserSettings from "./pages/ProfileSetting";
+import Terms_Conditions from "./pages/Policies/Terms_and_Conditions";
+import Shipping_Policy from "./pages/Policies/Shipping_Policy";
+import Refund_and_Returns_Policy from "./pages/Policies/Refund_and_Returns_Policy";
+import Cookie_Policy from "./pages/Policies/Cookie_Policy";
+import Disclaimer from "./pages/Policies/Disclaimer";
+import Intellectual_Property_Notice from "./pages/Policies/Intellectual_Property_Notice";
+import Privacy_Policy from "./pages/Policies/Privacy_policy";
 
 function App() {
   return (
     <>
-      <ScrollToTop /> {/* ⬅️ Automatically scrolls to top on route change */}
+      <ScrollToTop /> {/* ⬅ Automatically scrolls to top on route change */}
       <div></div>
       <div className="flex flex-col min-h-screen overflow-x-hidden">
         <Routes>
@@ -39,14 +45,13 @@ function App() {
                 <CustomerStories />
                 <OurPromise />
                 <BestSeller />
-                <Component/>
+                <Component />
                 <About />
                 <Footer />
               </>
             }
           />
           <Route path="/about" element={<About />} />
-          <Route path="/policies" element={<Policies />} />
           <Route path="/care" element={<Care />} />
           <Route path="/team" element={<Team />} />
           <Route path="/about-pistu" element={<About_Pistu />} />
@@ -54,10 +59,26 @@ function App() {
           <Route path="/profile" element={<UserSettings />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/category" element={<CategoryProducts />} />
+
+          {/* policies routing */}
+          <Route path="/privacy-policy" element={<Privacy_Policy />} />
+          <Route path="/terms-and-conditions" element={<Terms_Conditions />} />
+          <Route
+            path="/refund-and-returns-policy"
+            element={<Refund_and_Returns_Policy />}
+          />
+          <Route path="/shipping-policy" element={<Shipping_Policy />} />
+          <Route path="/cookie-policy" element={<Cookie_Policy />} />
+          <Route path="/disclaimer" element={<Disclaimer />} />
+          <Route
+            path="/intellectual-property-notice"
+            element={<Intellectual_Property_Notice />}
+          />
           <Route
             path="/category/:categoryName"
             element={<CategoryProducts />}
           />
+          /
           <Route
             path="/category/:categoryName/:productName"
             element={<ProductPage />}

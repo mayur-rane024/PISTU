@@ -1,6 +1,23 @@
+import Footer from "../Footer";
+import Navbar from "../Navbar";
+
 const Terms_Conditions = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-transparent w-full sm:px-80  px-10 py-10 text-gray-800 flex-col rounded-lg text-center relative">
+    <div>
+      <Navbar></Navbar>
+    <div className="min-h-screen flex items-center justify-center bg-[#fdf2e3]  w-full sm:px-80  px-10 py-10 text-gray-800 flex-col rounded-lg text-center relative">
+      
+        <img
+          alt="mandala left"
+          src="./mandala-left.png"
+          className="absolute top-30 left-0 w-1/4 sm:w-1/5 h-auto opacity-60 mt-10"
+        />
+        <img
+          alt="mandala right"
+          src="./mandala-right.png"
+          className="absolute top-30 right-0 w-1/4 sm:w-1/5 h-auto opacity-60 mt-10"
+        />
+
       <h1 className="text-2xl sm:text-3xl font-bold mb-6 mt-20 text-[#342b24]" style={{ fontFamily: "font5" }}>
         Terms and Conditions
       </h1>
@@ -81,6 +98,8 @@ const Terms_Conditions = () => {
           </p>
         </div>
       </div>
+    </div>
+    <Footer></Footer>
     </div>
   );
 };
