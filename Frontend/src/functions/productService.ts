@@ -1,5 +1,13 @@
 // productService.ts
-import { collection, getDocs } from "firebase/firestore";
+// productService.ts
+import {
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  startAt,
+  endAt,
+} from "firebase/firestore";
 import { db } from "../database/Firebase";
 import slugify from "slugify";
 import type { Product, ProductWithId } from "../types/product";
@@ -77,3 +85,32 @@ export const fetchProductsByFilters = async (
     return [];
   }
 };
+
+
+export const searchProductsByName = async (
+  searchQuery: string
+): Promise<ProductWithId[]> => {
+  try {
+    if (!searchQuery) return [];
+
+    const snapshot = await getDocs(collection(db, "Products"));
+
+    const products: ProductWithId[] = snapshot.docs.map((doc) => ({
+      ...(doc.data() as Product),
+      id: doc.id,
+    }));
+
+    const lowerQuery = searchQuery.toLowerCase();
+
+    const results = products.filter((product) =>
+      product.name.toLowerCase().includes(lowerQuery)
+    );
+
+    return results;
+  } catch (error) {
+    console.error("Error during search:", error);
+    return [];
+  }
+};
+
+

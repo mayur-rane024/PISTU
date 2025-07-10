@@ -3,23 +3,53 @@ import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
 import { Link, useLocation } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { CiHeart } from "react-icons/ci";
+import { searchProductsByName } from "../functions/productService"; // adjust path
+import slugify from "slugify";
+import type { ProductWithId } from "@/types/product";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  // const [searchQuery, setSearchQuery] = useState("");
   const [isAboutOpen, setIsAboutOpen] = useState(false);
-  // const [isToggleActive, setIsToggleActive] = useState(false);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState<ProductWithId[]>([]);
+
   const location = useLocation();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
-  // const toggleSearch = () => setIsSearchOpen(!isSearchOpen);
   const toggleAbout = () => setIsAboutOpen(!isAboutOpen);
-  // const toggleActive = () => setIsToggleActive(!isToggleActive);
+
+
+  const handleSearchIconClick = () => {
+  if (window.innerWidth < 768) {
+    navigate("/search");
+  }
+};
+
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      const fetchResults = async () => {
+        const results = await searchProductsByName(
+          searchQuery.trim().toLowerCase()
+        );
+        setSearchResults(results);
+      };
+
+      if (searchQuery.trim() !== "") {
+        fetchResults();
+      } else {
+        setSearchResults([]);
+      }
+    }, 300); // debounce delay
+
+    return () => clearTimeout(delayDebounce);
+  }, [searchQuery]);
 
   useEffect(() => {
     const handleClickOutsideSidebar = (event: { target: any }) => {
@@ -98,26 +128,60 @@ const Navbar = () => {
           </button>
 
           {/* Desktop Search */}
-          <div className="relative w-80 ">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="absolute top-0 bottom-0 w-6 h-6 my-auto text-[#4d3716] left-3"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+          <div className="relative w-full md:w-80" ref={searchRef}>
+            <div>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="absolute top-0 bottom-0 w-6 h-6 my-auto text-[#4d3716] left-3 cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                onClick={handleSearchIconClick}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+
             <Input
               type="text"
               placeholder="What are you looking for?"
-              className="hidden md:block pl-10 w-68 border-2 border-[#4d3716]"
+              className="pl-10 hidden md:block w-full border-2 border-[#4d3716] py-1 text-sm md:text-base"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
+
+            {searchQuery && (
+              <div className="absolute z-50 w-full mt-1 bg-white border border-[#A37853] rounded shadow-md max-h-60 overflow-y-auto">
+                {searchResults.length > 0 ? (
+                  searchResults.map((product) => (
+                    <div
+                      key={product.id}
+                      className="px-4 py-2 hover:bg-[#f5e6cc] text-[#4d3716] text-sm cursor-pointer"
+                      onClick={() => {
+                        setSearchQuery("");
+                        setSearchResults([]);
+                        navigate(
+                          `/category/${slugify(product.category, {
+                            lower: true,
+                          })}/${slugify(product.name, { lower: true })}`
+                        );
+                      }}
+                    >
+                      {product.name}
+                    </div>
+                  ))
+                ) : (
+                  <div className="px-4 py-2 text-gray-500 text-sm">
+                    No suggestions found
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
@@ -184,31 +248,6 @@ const Navbar = () => {
           </ul>
         </div>
       )}
-
-      {/* Mini Navigation for Policies (Top-Right) */}
-      {/* {location.pathname === "/policies" && (
-        <div className="fixed top-20 right-3 w-25 h-30 sm:w-48 bg-transparent shadow-lg rounded-md z-40 ">
-          <ul className="text-sm text-[#4d3716]">
-            {policyLinks.map((link, index) => (
-              <li key={index} className="py-1">
-                <Link
-                  to={`#${link.id}`}
-                  className="block hover:text-[#3A2A1B] px-2 py-1"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    const element = document.getElementById(link.id);
-                    if (element) {
-                      element.scrollIntoView({ behavior: "smooth" });
-                    }
-                  }}
-                >
-                  {link.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )} */}
 
       {/* Sidebar for mobile */}
       <div

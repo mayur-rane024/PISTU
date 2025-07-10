@@ -26,8 +26,24 @@ import Cookie_Policy from "./pages/Policies/Cookie_Policy";
 import Disclaimer from "./pages/Policies/Disclaimer";
 import Intellectual_Property_Notice from "./pages/Policies/Intellectual_Property_Notice";
 import Privacy_Policy from "./pages/Policies/Privacy_policy";
+import SearchPage from "./pages/SearchPage"; // adjust path
+import { Signin } from "./app/auth/signin";
+import { Signup } from "./app/auth/signup";
+import NotAllowed from "./app/auth/not-allowed";
 
 function App() {
+
+  const SignupRoute = () => {
+    const registrationType = import.meta.env.VITE_TYPE;
+
+    if (registrationType === "public") {
+      return <Signup />;
+    } else {
+      return <NotAllowed />;
+    }
+  };
+
+
   return (
     <>
       <ScrollToTop /> {/* ⬅ Automatically scrolls to top on route change */}
@@ -51,6 +67,8 @@ function App() {
               </>
             }
           />
+            <Route path="/login" element={<Signin />} />
+        <Route path="/signup" element={<SignupRoute />} />
           <Route path="/about" element={<About />} />
           <Route path="/care" element={<Care />} />
           <Route path="/team" element={<Team />} />
@@ -59,7 +77,7 @@ function App() {
           <Route path="/profile" element={<UserSettings />} />
           <Route path="/wishlist" element={<WishlistPage />} />
           <Route path="/category" element={<CategoryProducts />} />
-
+          <Route path="/search" element={<SearchPage />} />
           {/* policies routing */}
           <Route path="/privacy-policy" element={<Privacy_Policy />} />
           <Route path="/terms-and-conditions" element={<Terms_Conditions />} />
