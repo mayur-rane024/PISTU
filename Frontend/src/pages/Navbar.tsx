@@ -7,12 +7,18 @@ import { searchProductsByName } from "../functions/productService"; // adjust pa
 import slugify from "slugify";
 import type { ProductWithId } from "@/types/product";
 import { useNavigate } from "react-router-dom";
+import { auth } from "@/database/Firebase";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isAboutOpen, setIsAboutOpen] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const userRef = useRef<HTMLDivElement>(null);
 
   const sidebarRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -25,12 +31,34 @@ const Navbar = () => {
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   const toggleAbout = () => setIsAboutOpen(!isAboutOpen);
 
-
   const handleSearchIconClick = () => {
-  if (window.innerWidth < 768) {
-    navigate("/search");
-  }
-};
+    if (window.innerWidth < 768) {
+      navigate("/search");
+    }
+  };
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isUserDropdownOpen &&
+        userRef.current &&
+        !userRef.current.contains(event.target as Node)
+      ) {
+        setIsUserDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isUserDropdownOpen]);
 
   useEffect(() => {
     const delayDebounce = setTimeout(() => {
@@ -197,16 +225,51 @@ const Navbar = () => {
           <Link to="/cart">
             <div className="h-[34px] w-10 bg-school-bag cursor-pointer" />
           </Link>
-          <Link to="/profile">
+          {/* User Icon and Dropdown */}
+          <div className="relative" ref={userRef}>
             <img
-              src="/login.png"
-              alt="Login"
-              onClick={() => console.log("Login Clicked")}
-              onMouseEnter={(e) => (e.currentTarget.src = "/login-hover.png")}
-              onMouseLeave={(e) => (e.currentTarget.src = "/login.png")}
-              className="h-8 w-8 md:h-10 md:w-10 cursor-pointer transition duration-200"
+              src={"/login.png"}
+              alt="User"
+              className="h-8 w-8 md:h-10 md:w-10 rounded-full cursor-pointer border "
+              onClick={() => {
+                if (currentUser) {
+                  setIsUserDropdownOpen((prev) => !prev);
+                } else {
+                  navigate("/signup");
+                }
+              }}
+              onMouseEnter={(e) => {
+                if (!currentUser) e.currentTarget.src = "/login-hover.png";
+              }}
+              onMouseLeave={(e) => {
+                if (!currentUser) e.currentTarget.src = "/login.png";
+              }}
             />
-          </Link>
+
+            {isUserDropdownOpen && currentUser && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded shadow-lg z-50">
+                <Link
+                  to="/profile"
+                  className="block px-4 py-2 text-sm text-[#4d3716] hover:bg-[#f5e6cc]"
+                  onClick={() => setIsUserDropdownOpen(false)}
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={async () => {
+                    await signOut(auth);
+                    setCurrentUser(null);
+                    setIsUserDropdownOpen(false);
+                    navigate("/");
+                  }}
+                  className="block w-full text-left px-4 py-2 text-sm text-[#4d3716] hover:bg-[#f5e6cc]"
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+
           <Link to="/wishlist">
             <CiHeart className="h-8 w-8 md:h-10 md:w-10 cursor-pointer hover:text-[#d7b788]" />
           </Link>

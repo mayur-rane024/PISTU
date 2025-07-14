@@ -28,21 +28,27 @@ const CartPage: React.FC = () => {
   };
 
   const total = cartItems
-    .filter((item) => item.selected)
+    .filter(item => item.selected)
     .reduce((acc, item) => acc + item.price * (item.quantity || 1), 0);
 
   return (
     <>
       <Navbar />
-      <div className="container mx-auto p-4 bg-white flex flex-col pt-28 md:flex-row gap-6">
+      <div className="container mx-auto px-4 md:px-30 pt-28 pb-8 flex flex-col md:flex-row gap-6">
+        {/* Cart Items Section */}
         <div className="w-full md:w-2/3">
-          <div className="border rounded-md">
+          <div className="border rounded-md bg-white">
             <div className="p-4 flex items-center gap-2 border-b font-semibold text-green-700">
               <input
                 type="checkbox"
-                checked={cartItems.every((item) => item.selected)}
+                checked={cartItems.every(item => item.selected)}
                 onChange={(e) =>
-                  setCartItems(cartItems.map(item => ({ ...item, selected: e.target.checked })))
+                  setCartItems(
+                    cartItems.map(item => ({
+                      ...item,
+                      selected: e.target.checked,
+                    }))
+                  )
                 }
               />
               <span>
@@ -51,7 +57,7 @@ const CartPage: React.FC = () => {
               <span className="text-black"> (₹{total})</span>
             </div>
 
-            {cartItems.map((item) => (
+            {cartItems.map(item => (
               <CartItem
                 key={item.id}
                 image={item.image}
@@ -67,7 +73,11 @@ const CartPage: React.FC = () => {
             ))}
           </div>
         </div>
-        <CartSidebar cartItems={cartItems} />
+
+        {/* Sidebar */}
+        <div className="w-full md:w-1/4">
+          <CartSidebar cartItems={cartItems} />
+        </div>
       </div>
       <Footer />
     </>
