@@ -7,7 +7,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
-import { CartItemProps } from "@/types/userType";
+import type { CartItemProps } from "@/types/userType";
 
 export const CartItem: React.FC<CartItemProps> = ({
   item,

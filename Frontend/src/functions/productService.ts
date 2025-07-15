@@ -3,10 +3,6 @@
 import {
   collection,
   getDocs,
-  query,
-  orderBy,
-  startAt,
-  endAt,
 } from "firebase/firestore";
 import { db } from "../database/Firebase";
 import slugify from "slugify";
